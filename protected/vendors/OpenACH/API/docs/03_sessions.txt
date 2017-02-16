@@ -1,0 +1,14 @@
+Using Sessions on the OpenACH SDK (PHP)
+
+Typically, the API connection would automatically terminate when the OAClient class is destroyed, however the HTTP Session instance
+ remains open on the server for a period of time after the socket connection is closed.  The API server is designed to operate this
+ way specifically to allow for subsequent connections on the same session without the need for re-authenticating.  This can be usef
+ul for using a single authentication session across several servers, or connecting to the API from a server-side script and passing control to a web-based admin front-end.
+
+Internal to the OpenACH SDK however, this feature is used simply to allow for a session-based connection that doesn't require re-authenticating with every API call.  Simply connect, call as many methods as you like, and then disconnect.
+
+If you have a need to implement more advanced session-based connections, you would need to extend OAClient.  After connecting, the extended class would need to retrieve the protected sessionId member on the OAClient class and store it inside your application for future use.
+
+Note that sessions are not open indefinitely, so you should actively check to see if the session is still available on the server before using it again.
+
+

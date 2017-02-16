@@ -1,0 +1,60 @@
+Connecting via the OpenACH SDK (PHP)
+
+
+Method #1 - INI Configuration
+
+Edit the settings in conf/connection.ini for your connection, and then load the config file and open a connection as follows:
+
+// Using the default config file location and filename
+$config = new OAClientConfigIni();
+$client = new OAConnection( $config );
+$response = $client->connect();
+if ( ! $response->success )
+{
+	echo 'Unable to connect.' . PHP_EOL;
+	exit;
+}
+
+// Using an alternate config file location and filename
+$config = new OAClientConfigIni( '/path/to/your/config/', 'yourconfig.ini' );
+$client = new OAConnection( $config );
+$response = $client->connect();
+if ( ! $response->success )
+{
+	echo 'Unable to connect.' . PHP_EOL;
+}
+
+
+
+Method #2 - Hard-Coded Values
+
+Using this method, you would hard code the connection values into your code, and pass these connection values directly to the client's connect() method:
+
+$client = new OAConnection(); // Defaults to an 'empty' configuration
+$response = $client->connect(
+	'Your API Token',
+	'Your API Key',
+	'http://test.openach.com/api/' );       // Make sure the endpoint is the server your account is on
+if ( ! $response->success )
+{
+        echo $response->error . PHP_EOL;
+        exit;
+}
+
+
+Method #3 - Alternate Configuration Storage
+
+This method is coded much like Method #1, but requires you to extend the OAClientConfig class to pre-load the required configuration values prior to using the configuration instance:
+
+// Assuming you extended OAClientConfig as OAClientConfigCustomStorage
+$config = new OAClientConfigCustomStorage();
+$client = new OAConnection( $config );
+$response = $client->connect();
+if ( ! $response->success )
+{
+        echo 'Unable to connect.' . PHP_EOL;
+        exit;
+}
+
+
+

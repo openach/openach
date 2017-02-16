@@ -1,0 +1,25 @@
+Intro to OpenACH SDK (PHP)
+
+A powerful feature of OpenACH is that it can easily be integrated with other systems - both as a payment gateway for e-commerce, billing systems, etc., and as a source of data for customer portals, accounting systems, CRM systems, and more. All of this is accomplished through a simple and secure REST/JSON API which can be used independently or through the OpenACH PHP SDK.
+
+
+Getting Started
+
+The easiest way to get going quickly integrating your website/webapp with OpenACH is to use the PHP SDK. You can find this bundled with OpenACH in the /protected/vendors/OpenACH/API/ folder, or as a separate download on the OpenACH website (in the OpenACH Developers Guide).
+
+The API can be used to create and maintain payment profiles, bank accounts, and payment schedules. Payment profiles can easily be linked to your customer records using an 'external id', making it very easy to find your customers later, even if you don't want to have to track the IDs that OpenACH creates for them. The basic flow through the API is as follows:
+
+1.  Connect/Authenticate
+2.  Load one or more records
+3.  Optionally save one or more records
+4.  Disconnect/Logout
+
+
+OpenACH OAConnection VS OpenACH Core APIA
+
+For most users, the OAConnection class will be the focus of your implementation.  It implements many high-level functions typical to most users' API access requirements, and provided a very simple and easy way to connect your existing application to the OpenACH platform.
+
+By contrast, the OpenACH Core API (implemented by the OAClient class) operates on a client/request/response model. First, a client is created which connects to a specific OpenACH host, authenticating with an auth-token and key. Once connected, a request is made of the server, and the server returns a response to the client.  The stubs for request and response models are found in OAConnectRequest.php
+
+HOWEVER, using the Core API directly is much more involved than simply using the OAConnection class, as OAClient doesn't include the higher level API interaction implemented by OAConnection.  The OpenACH Core API is available to those who need more granular control over the API calls.  The OAConnection class extends OAClient, so if you integrate using the OAConnection class and decide later that you need to use the Core API, you can call the core methods via the OAConnection class without having to change your entire implementation.
+

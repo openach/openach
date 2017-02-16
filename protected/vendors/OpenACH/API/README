@@ -1,0 +1,53 @@
+/*********************************************************************************
+ * OpenACH is an ACH payment processing platform
+ * Copyright (C) 2011 Steven Brendtro, ALL RIGHTS RESERVED
+ * 
+ * Refer to /legal/license.txt for license information, or view the full license
+ * online at http://openach.com/community/license.txt
+ ********************************************************************************/
+
+
+OpenACH API PHP SDK
+===================
+
+The SDK included in these folders can be used to connect to the OpenACH RESTful API.
+
+For a quick demo you can run:
+
+	php examples/demo.php
+		AND
+	php examples/demo2.php
+
+The distributed config file in conf/connection.ini contains a demo API key and token.  If you have your own API key and token, be sure to update the file accordingly.  Also ensure that the endpointUrl is pointing at the correct instance of OpenACH - whether it be the OpenACH test server, or your own installation.
+
+
+Example Code
+============
+
+Examples can be found in the examples/connection folder has step-by-step examples for each of the API endpoints.
+
+
+Documentation
+=============
+
+Documentation is included in the docs/ folder.
+
+
+SDK Library Files
+=================
+
+The SDK itself is located in the lib/ folder.
+
+
+PHPUnit Test Framework
+======================
+
+WARNING!!!  Do not run the unit test unless fully understand the implications to your system!
+
+The tests/ directory contains PHPUnit tests to verify that the SDK is bug-free.  Note however, only run these tests if you know exactly what you are doing.  If you run them from within a functional OpenACH installation, it will delete records after it creates them!  This is helpful to reset the system back to pre-test state.
+
+If you run the unit tests outside of an OpenACH installation, you will be able to create new records, but it will not attempt to clean up your newly-created test records after the testing completes.  This shouldn't pose a problem, except in the case of external accounts, as there are restrictions preventing duplicate routing/account numbers for any given payment profile.
+
+For the tests to be successful, the tests/fixtures/ folder must contain records that reflect data actually in the system.  Specifically,  you will need to update external_account.php, payment_profile.php, payment_schedule.php and payment_type.php with data that reflects records in your system, and accessible by your API key and token.  The other files in the fixtures folder can be updated and/or additional records added for stubbing out your test platform.  It should be noted that this test data can also be generated using the OpenACH platform test cases inside of the full OpenACH installation.
+
+

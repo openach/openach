@@ -1,0 +1,6 @@
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
+h3 {  font-size: 12pt; height: 47px; line-height: 36pt; }
+h2 {   font-size: 14pt; line-height: 18pt; margin: 10px 0; font-weight: bold; }
+h1 {  font-size: 16pt; letter-spacing: -0.5px; line-height: 18pt; font-weight: bold; }
+
+#appPageContent h1 { font-size: 18pt; font-weight: normal; color: #333; }

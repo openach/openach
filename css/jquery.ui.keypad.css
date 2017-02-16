@@ -1,0 +1,29 @@
+/* JQM Keypad Entry */
+.jqm-keypad {
+
+}
+.jqm-keypad .ui-grid-b {
+        padding: 15px;
+}
+.jqm-keypad .ui-btn-text {
+        text-align: center;
+}
+
+.jqm-keypad-input-container input.jqm-keypad-input {
+        text-align: right;
+        font-size: 1.75em;
+        width: 89%;
+        margin-left: 0.2em;
+/*   */
+	width: 75%;
+	float: right;
+
+	border: none;
+	background: transparent;
+}
+
+.jqm-keypad-input-container {
+	min-height: 30px;
+	margin-bottom: 10px;
+}
+

@@ -1,0 +1,104 @@
+SELECT
+  source.phonetic_data_entity_class,
+  source.phonetic_data_entity_id,
+  result.phonetic_data_entity_id,
+  source.phonetic_data_type,
+  COUNT( source.phonetic_data_type )
+FROM
+  phonetic_data source,
+  phonetic_data result
+WHERE
+  source.phonetic_data_encoding_method = result.phonetic_data_encoding_method
+  AND source.phonetic_data_type = result.phonetic_data_type
+  AND source.phonetic_data_key = result.phonetic_data_key
+  AND source.phonetic_data_entity_class NOT IN ( 'OfacSdn', 'OfacAlt' )
+  AND result.phonetic_data_entity_class IN ( 'OfacSdn', 'OfacAlt' )
+  AND source.phonetic_data_type IN ( 'last_name', 'first_name' )
+GROUP BY
+  source.phonetic_data_entity_class,
+  source.phonetic_data_entity_id,
+  source.phonetic_data_type,
+  result.phonetic_data_entity_id;
+
+
+SELECT
+  source.phonetic_data_entity_class,
+  source.phonetic_data_entity_id,
+  result.phonetic_data_entity_id,
+  COUNT( source.phonetic_data_type )
+FROM
+  phonetic_data source,
+  phonetic_data result
+WHERE
+  source.phonetic_data_encoding_method = result.phonetic_data_encoding_method
+  AND source.phonetic_data_type = result.phonetic_data_type
+  AND source.phonetic_data_key = result.phonetic_data_key
+  AND source.phonetic_data_entity_class NOT IN ( 'OfacSdn', 'OfacAlt' )
+  AND result.phonetic_data_entity_class IN ( 'OfacSdn', 'OfacAlt' )
+  AND source.phonetic_data_type = 'company_name'
+GROUP BY
+  source.phonetic_data_entity_class,
+  source.phonetic_data_entity_id,
+  result.phonetic_data_entity_id;
+
+
+CREATE VIEW phonetic_filtered AS
+SELECT
+  source.phonetic_data_entity_class AS filtered_source_entity_class,
+  source.phonetic_data_entity_id AS filtered_source_entity_id,
+  result.phonetic_data_entity_class AS filtered_result_entity_class,
+  result.phonetic_data_entity_id AS filtered_result_entity_id,
+  'name' AS data_type,
+  COUNT( source.phonetic_data_key ) as total_hits
+FROM
+  phonetic_data source
+  JOIN phonetic_data result
+  USING
+  (
+    phonetic_data_encoding_method,
+    phonetic_data_type,
+    phonetic_data_key
+  )
+WHERE
+  source.phonetic_data_entity_class NOT IN ( 'OfacSdn', 'OfacAlt' )
+  AND result.phonetic_data_entity_class IN ( 'OfacSdn', 'OfacAlt' )
+  AND source.phonetic_data_type IN ( 'last_name', 'first_name' )
+GROUP BY 
+  source.phonetic_data_entity_class,
+  source.phonetic_data_entity_id,
+  result.phonetic_data_entity_id
+HAVING total_hits >= 5
+  
+UNION 
+
+SELECT
+  source.phonetic_data_entity_class AS filtered_source_entity_class,
+  source.phonetic_data_entity_id AS filtered_source_entity_id,
+  result.phonetic_data_entity_class AS filtered_result_entity_class,
+  result.phonetic_data_entity_id AS filtered_result_entity_id,
+  'company' AS data_type,
+  COUNT( source.phonetic_data_key ) as total_hits
+FROM
+  phonetic_data source
+  JOIN phonetic_data result
+  USING
+  (
+    phonetic_data_encoding_method,
+    phonetic_data_type,
+    phonetic_data_key
+  )
+WHERE
+  source.phonetic_data_entity_class NOT IN ( 'OfacSdn', 'OfacAlt' )
+  AND result.phonetic_data_entity_class IN ( 'OfacSdn', 'OfacAlt' )
+  AND source.phonetic_data_type IN ( 'company' )
+GROUP BY 
+  source.phonetic_data_entity_class,
+  source.phonetic_data_entity_id,
+  result.phonetic_data_entity_id
+HAVING total_hits >= 2;
+
+/* To check for OFAC matches, the following query can be used
+   NOTE:  for data_type = 'name', the number of hits we look for is 5/6, for 'company' we lok for 2/3
+   We could do more advanced weighting and scoring, but this seems to be a good starting point.
+ */
+SELECT * FROM phonetic_filtered WHERE ( data_type = 'name' AND total_hits >= 5 ) OR ( data_type = 'company' AND total_hits >= 2 );

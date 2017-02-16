@@ -1,0 +1,13 @@
+/*.ui-collapsible-content { padding: 15px 0 15px 8px; }
+.ui-content .ui-collapsible-content .ui-listview { margin:-15px 0 -15px -7px; }
+ul.ui-listview[data-inset="false"] { margin-top: 25px; }
+*/
+.ui-collapsible .ui-collapsible-content .ui-listview-filter {  margin: -9px -15px 10px -15px; }
+
+.ui-collapsible .ui-collapsible-content .ui-listview { margin: -10px -15px -11px -15px; }
+
+.ui-footer .ui-btn-right {
+	position: absolute;
+	right: 10px;
+	top: .4em;
+}

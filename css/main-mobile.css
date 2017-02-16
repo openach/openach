@@ -1,0 +1,315 @@
+h1 { font-size: 1.7em; line-height: 1em; }
+h2 { font-size: 1.5em; line-height: .8em; }
+
+.ui-content {
+}
+
+.column-layout .content-pane {
+	padding: 0;
+	margin: 0;
+	float: right;
+	width: 80%;
+}
+.column-layout .menu-pane {
+	margin: 0;
+	padding: 0;
+	float: left;
+	width: 20%;
+}
+.column-layout {
+	background: url('/images/px-ccc.gif') repeat-y 20% 0;
+}
+
+.ui-listview div.label {
+	font-weight: bold;
+/*	width: 20%; */
+/*	float: left; */
+}
+.ui-listview div.text {
+	font-weight: normal;
+/*	float: left; */
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.list-view {
+	margin-top: 15px;
+}
+.list-view .summary {
+	float: right;
+	margin-top: -30px;
+}
+
+.float-left {
+	float: left;
+	width: 150px;
+}
+.float-left.col-1 {
+	width: 2.5em;
+}
+.float-left.col-2 {
+	width: 5em;
+}
+.float-left.col-3 {
+	width: 7.5em; 
+}
+.float-left.col-4 {
+	width: 10em;
+}
+.float-left.col-5 {
+	width: 12.5em;
+}
+.float-left.col-6 {
+	width: 15em;
+}
+.float-left.col-7 {
+	width: 17.5em;
+}
+.float-left.col-8 {
+	width: 20em;
+}
+.float-left.col-9 {
+	width: 22.5em;
+}
+.float-left.col-10 {
+	width: 25em;
+}
+
+
+.float-left.ui-li-desc {
+	margin: 0;
+}
+
+.routing-number-container {
+	position: relative;
+}
+
+#routing-number-bank-name {
+	position: absolute;
+	font-weight: bold;
+	bottom: 9px;
+	right: 15px;
+}
+
+.ui-grid-a .credits,
+.ui-grid-a .debits {
+	text-align: center;
+}
+
+.ui-grid-a .credits h1 {
+	color: red;
+}
+.ui-grid-a .debits h1 {
+	color: green;
+}
+
+.ui-li-aside .credits {
+	color: red;
+}
+.ui-li-aside .debits {
+	color: green;
+}
+
+h1.entry-amount {
+	font-weight: normal;
+	font-size: 1.8em;
+	text-align: center;
+	margin: 1.0em 0.67em 1.0em 0.67em;
+}
+
+div[data-role=dialog] div[data-role=content] {
+	background: #f0f0f0 url( '/images/ach_symbol_med.png') no-repeat top center;
+}
+
+ul.small-thumb.ui-listview {
+	margin-top: 15px;
+}
+ul.small-thumb .ui-li-static.ui-li-has-thumb {
+	min-height: 0;
+	padding-left: 40px;
+}
+ul.small-thumb li img {
+	margin: 5px 7px 0 7px;
+}
+ul.small-thumb li.customer img {
+	margin-top: 15px;
+}
+
+ul.small-thumb li.header-thumb.ui-li-static.ui-li-has-thumb {
+	padding-left: 100px;
+}
+
+.ui-simpledialog-container ul.small-thumb.ui-listview {
+	margin-top: 0;
+}
+
+
+
+/* scrolling toolbar */
+.breadcrumb-bar {
+	overflow: hidden;
+	height: 30px;
+}
+.breadcrumb-bar .item {
+	width: 75px;
+	border: 1px solid black;
+	margin: 0 10px 0 10px;
+	float: left;
+}
+.breadcrumb-bar > .ui-scrollview-view {
+	width: 1940px;
+}
+
+/* Footer Control */
+
+.list-footer-control h4.ui-li-heading {
+	margin: 0;
+}
+
+/* Lower Navbar */
+
+.ui-footer.page-footer .ui-navbar {
+	margin: 0;
+}
+#oa-nav-menu .ui-btn .ui-btn-inner { padding-top: 40px !important; }
+#oa-nav-menu .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
+#chat .ui-icon { background:  url(/images/icons/glyphish/icons/icons-white/09-chat-2.png) 50% 50% no-repeat; background-size: 24px 22px; }
+#email .ui-icon { background:  url(/images/icons/glyphish/icons/icons-white/18-envelope.png) 50% 50% no-repeat; background-size: 24px 16px;  }
+#login .ui-icon { background:  url(/images/icons/glyphish/icons/icons-white/30-key.png) 50% 50% no-repeat;  background-size: 12px 26px; }
+#beer .ui-icon { background:  url(/images/icons/glyphish/icons/icons-white/88-beermug.png) 50% 50% no-repeat;  background-size: 22px 27px; }
+#coffee .ui-icon { background:  url(/images/icons/glyphish/icons/icons-white/100-coffee.png) 50% 50% no-repeat;  background-size: 20px 24px; }
+#skull .ui-icon { background:  url(/images/icons/glyphish/icons/icons-white/21-skull.png) 50% 50% no-repeat;  background-size: 22px 24px; }
+
+#oa-nav-menu {
+	position: relative;
+	top: -40px;
+}
+
+/* Page Background */
+/*
+div.ui-body-c {
+	background: transparent;
+}
+
+div.ui-page-active {
+	background: url('/images/backgrounds/back_pc.jpg') no-repeat;
+	background-size: 100%;
+}
+*/
+
+.pad-top { margin-top: +25px; }
+
+/****  CLOUD THEME ****/
+.cloud-header {
+	background: url('/images/cloud_banner_logo_fg.png') no-repeat top;
+	height: 100px;
+	background-color: lightBlue;
+	border: none;
+}
+.cloud-header h1.ui-title {
+	margin-top: 0;
+	padding-top: 1em;
+}
+.cloud-content {
+	background: #f6fbfc;
+}
+.cloud-content h1 {
+	margin-top: 0;
+}
+.cloud-header .header-image {
+	background: none;
+	border: none;
+}
+.cloud-header .header-image span {
+	border: none;
+}
+.cloud-header .ui-title {
+	font-size: 2.0em;
+	text-shadow: 0 1px 1px #111;
+	color: #555;
+	letter-spacing: -0.1em;
+}
+.cloud-header .header-image.back-button {
+	margin: -50px 0 0 48%;
+	display: none;
+}
+
+.cloud-content.user h1 {
+	padding-left: 30px;
+	background: url('/images/icons/user.png') no-repeat left;
+}
+.cloud-content.achBatch h1 {
+	padding-left: 30px;
+	background: url('/images/icons/achbatch.png') no-repeat left;
+}
+.cloud-content.achEntry h1 {
+	padding-left: 30px;
+	background: url('/images/icons/receipt.png') no-repeat left;
+}
+.cloud-content.achFile h1 {
+	padding-left: 30px;
+	background: url('/images/icons/achfile.png') no-repeat left;
+}
+.cloud-content.bankPlugin h1 {
+	padding-left: 30px;
+	background: url('/images/icons/plugin.png') no-repeat left;
+}
+.cloud-content.externalAccount h1 {
+	padding-left: 30px;
+	background: url('/images/icons/bank.png') no-repeat left;
+}
+.cloud-content.originator h1 {
+	padding-left: 30px;
+	background: url('/images/icons/originator.png') no-repeat left;
+}
+.cloud-content.paymentProfile h1 {
+	padding-left: 30px;
+	background: url('/images/icons/customer.png') no-repeat left;
+}
+.cloud-content.paymentSchedule h1 {
+	padding-left: 30px;
+	background: url('/images/icons/schedule.png') no-repeat left;
+}
+.cloud-content.site.site_login h1 {
+	padding-left: 30px;
+	background: url('/images/icons/secure.png') no-repeat left;
+}
+
+.simpledialog-content {
+	display: none;
+}
+
+
+/* search form */
+.search.form {
+	text-align: center;
+	width: 75%;
+	margin: auto;
+}
+.search.form .ui-input-search {
+/*	padding: 0 30px 0 30px; */
+	padding-right: 30px;
+	padding-left: 30px;
+	padding: 0 30px 0 30px;
+	width: 90%;
+}
+.search.form .row.buttons .ui-btn {
+	width: 20%;
+	min-width: 75px;
+	margin:auto;
+}
+.search.form .ui-field-contain, .search.form fieldset.ui-field-contain {
+	border-width: 0;
+}
+.search.form .ui-mini .ui-input-clear {
+	right: 0px;
+}
+.search.form #query {
+/*	height: 22px; */
+	margin: 0px;
+	padding: 6px 0 6px 0;
+}
+.ui-body-c, .ui-overlay-c {
+	background: #F6FBFC;
+}
+

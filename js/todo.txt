@@ -1,0 +1,8 @@
+Install and utilize the following jquery mobile plugins:
+
+
+Date Picker for date fields
+http://dev.jtsage.com/jQM-DateBox/
+
+
+

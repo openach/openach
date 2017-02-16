@@ -1,0 +1,26 @@
+Payment Schedules via OpenACH SDK (PHP)
+
+At the heart of OpenACH are payment schedules. Each individual payment schedule is associated with a single external account which is used to process the payment(s). Payment schedules can be created as one-time payments, or recurring payments with intervals of daily, weekly, biweekly, monthly, bimonthly, biannually, annually, or biennially. Each payment schedule is assigned an amount, payment type, currency code, next date, frequency, an end date, and status. OpenACH automatically calculates the remaining occurrences for each payment schedule based on this information. Each payment schedule is linked to a payment type.
+
+Both an external_account_id and payment_type_id are required to create a payment schedule.  
+
+Payment schedule frequency must be one of: once, daily, weekly, biweekly, monthly, bimonthly, biannually, annually, biennially
+
+Payment schedule remaining occurrences is calcualted automatically.  If you pass something in, it will be ignored and recalculated.
+
+Payment schedule currency code currently only supports one type, USD.
+
+Payment schedule status can be one of:  enabled, disabled
+
+A full list of fields for payment schedules is as follows:
+               payment_schedule_id
+               payment_schedule_external_account_id
+               payment_schedule_payment_type_id
+               payment_schedule_amount
+               payment_schedule_currency_code
+               payment_schedule_next_date
+               payment_schedule_frequency
+               payment_schedule_end_date
+               payment_schedule_remaining_occurrences
+               payment_schedule_status
+	

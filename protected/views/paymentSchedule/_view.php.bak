@@ -1,0 +1,42 @@
+<div class="view">
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('payment_schedule_id')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->payment_schedule_id), array('view', 'id'=>$data->payment_schedule_id)); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('payment_schedule_payment_profile_id')); ?>:</b>
+	<?php echo CHtml::encode($data->payment_schedule_payment_profile_id); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('payment_schedule_status')); ?>:</b>
+	<?php echo CHtml::encode($data->payment_schedule_status); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('payment_schedule_amount')); ?>:</b>
+	<?php echo CHtml::encode($data->payment_schedule_amount); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('payment_schedule_currency_code')); ?>:</b>
+	<?php echo CHtml::encode($data->payment_schedule_currency_code); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('payment_schedule_next_date')); ?>:</b>
+	<?php echo CHtml::encode($data->payment_schedule_next_date); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('payment_schedule_frequency')); ?>:</b>
+	<?php echo CHtml::encode($data->payment_schedule_frequency); ?>
+	<br />
+
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('payment_schedule_end_date')); ?>:</b>
+	<?php echo CHtml::encode($data->payment_schedule_end_date); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('payment_schedule_max_occurrences')); ?>:</b>
+	<?php echo CHtml::encode($data->payment_schedule_max_occurrences); ?>
+	<br />
+
+	*/ ?>
+
+</div>

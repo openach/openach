@@ -1,0 +1,44 @@
+External Accounts via OpenACH SDK (PHP)
+
+External accounts are simply customer bank accounts. It may seem odd at first to refer to them as "external accounts" instead of "bank accounts", but understand that OpenACH deals with all sorts of different bank accounts. These particular bank accounts are external in the fact that they belong to people other than the originator, and more than likely reside at other banks than the originator's bank account(s). We chose not to rename them in the Core API in order to avoid confusion for developers who work with both internal and SDK aspects of OpenACH.  When you are using the API, just remember that "external account" simply means "bank account".
+
+Any given payment profile may have multiple external accounts, and a single external account may be associated with many payment schedules. External accounts are defined by bank name, bank country, routing/SWIFT number, account number, account holder name, account type (checking or savings), and a billing address (required only for international transactions).
+
+
+Loading an External Account
+
+You can load an external account directly if you know its ID.  However in most cases, you'll first load a payment profile and then retrieve a list of external accounts associated with that payment profile.  At that point, a user may select a specific external account to edit.  You may choose to reload the external account individually at that point, or simply use the copy of the external account as returned in the external account list.  How you implement this is up to you.
+
+As with previous examples, this can be done most easily using the OAConnection class.  The following shows how to get a list of external accounts associated with a payment profile id.
+
+$conn = new OAConnection();
+$conn->connect();
+
+$externalAccounts = $conn->getExternalAccounts( $profileId, OAConnection::IDTYPE_API ); // load a list of external accounts by an ID Specific to the API
+
+If you already know the external account id, you can load the external account directly:
+
+$conn = new OAConnection();
+$conn->connect();
+
+$externalAccount = $conn->getExternalAccount( $externalAccountId );
+
+
+Modifying an External Account
+
+To change a value on an external account, first load the external account, modify one or more values, and then save it.  Note that once created, not all fields can be modified through the API.
+
+TODO:  Add example code here
+
+
+Creating an External Account
+
+To create an external account, build one with all the required fields, and then save it.  Remember that an external account must be associated with a payment profile.  Be sure to correctly set the payment profile id so that you can access the account via the payment profile.
+
+TODO:  Add example code here
+
+
+Deleting an External Account
+
+Because it is important to maintain relationships between payment profiles, external accounts, payment profiles, payment schedules, and transactions, deleting external accounts via the API is not allowed.  If you want to modify an external account so that it is no longer usable on the system, change its status to 'closed'.  While the account can still be loaded directly through getExternalAccount, it will not appear in the getExternalAccounts list, and any payment schedules associated with the external account will no longer process.
+

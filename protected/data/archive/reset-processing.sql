@@ -1,0 +1,15 @@
+TRUNCATE TABLE ach_batch;
+TRUNCATE TABLE ach_batch_log;
+TRUNCATE TABLE ach_entry;
+TRUNCATE TABLE ach_entry_log;
+TRUNCATE TABLE ach_file;
+TRUNCATE TABLE ach_file_log;
+TRUNCATE TABLE external_account;
+TRUNCATE TABLE external_account_log;
+TRUNCATE TABLE payment_event_log;
+TRUNCATE TABLE payment_profile;
+TRUNCATE TABLE payment_profile_log;
+TRUNCATE TABLE payment_schedule;
+TRUNCATE TABLE payment_schedule_log;
+UPDATE entity_index SET entity_index_next_id = 1;
+DELETE FROM phonetic_data WHERE phonetic_data_entity_class = 'PaymentProfile';

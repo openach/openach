@@ -1,0 +1,16 @@
+Disconnecting from the OpenACH SDK (PHP)
+
+When the OAClient object is destroyed, the HTTP Session remains open on the OpenACH server (see sessions.txt for more information).  In order to terminate the connection and destroy the session, call the disconnect() method on OAClient as follows:
+
+// Connection configuration
+$config = new OAClientConfigIni();
+$client = new OAClient( $config );
+$response = $client->connect();
+// Perform one or more tasks on the OpenACH API
+// .
+// .
+// .
+// Close the connection and destroy the session
+$client->disconnect();
+
+

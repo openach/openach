@@ -1,0 +1,39 @@
+Payment Profiles via OpenACH SDK (PHP)
+
+In OpenACH, each payment profile represents a customer, and includes first and last name, email address, password, security questions/answers and status.  A payment profile can have multiple external accounts (e.g. bank accounts) and payment schedules.
+
+When working with payment profiles, it is important to note that not all this information is required.  In fact, a payment profile could be created with simply an email address and 'external id'.  The name fields, password and security questions/answers are provided as a feature to allow easy third party app development where profile information isn't stored within the application.  The amount of data you store in the profile is up to you as an application developer and integrator.
+
+Payment profiles require an external ID field (payment_profile_external_id).  While the naming convention may be slightly confusing, this refers to an ID that is external to the OpenACH platform - that is to say its an ID that is part of your own application.  If you manage profiles localy within your application, you will use this field to link your local profiles to OpenACH payment profiles.  If you use OpenACH to store all your profile information, you would use the external id field to store a username.
+
+When using the OAConnection class, a mechanism is provided to clarify this.  When calling a method that provides a payment profile ID, you can specify whether its type, where the type is one of:  OAConnection::IDTYPE_APP (an ID belonging to your application), OAConnection::IDTYPE_API (an ID belonging to the OpenACH API), OAConnection::IDTYPE_EXTERNAL (same as IDTYPE_APP), or OAConnection::IDTYPE_INTERNAL (same as IDTYPE_API).  For example:
+
+$conn->getPaymentProfile( $profileId, OAConnection::IDTYPE_APP ); // load by an ID that is specific to your application
+$conn->getPaymentProfile( $profileId, OAConnection::IDTYPE_API ); // load by an ID that is specific to OpenACH
+
+The password field is encrypted before storing in the OpenACH database.  However, when using OpenACH to implement full profile storage, it is strongly recommended that you use a strong password hashing (i.e. SHA256 with a salt), with or without a work-factor (e.g. slow encryption using an algorithm such as BCrypt).  There are plenty of resources online that outline how to do this.  If you're not familliar with these design patterns, a good place to start is https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet
+
+
+Loading a Payment Profile
+
+As discussed above, you can load a payment profile by either an application profile id, or an OpenACH API id.  This can be done using the OAConnection class:
+
+$conn = new OAConnection();
+$conn->connect();
+$profile = $conn->getPaymentProfile( $profileId, OAConnection::IDTYPE_APP ); // load by an ID that is specific to your application
+$profile = $conn->getPaymentProfile( $profileId, OAConnection::IDTYPE_API ); // load by an ID that is specific to OpenACH
+
+
+Modifying a Payment Profile
+
+To change a value on a payment profile, first load the profile, modify one or more values, and then save it.
+
+TODO:  Add example code here
+
+
+Creating a Payment Profile
+
+To create a payment profile, build one with all the required fields, and any additional fields you wish to set, and then save it.
+
+TODO:  Add example code here
+

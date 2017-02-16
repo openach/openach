@@ -1,0 +1,161 @@
+<?php
+/*********************************************************************************
+ * OpenACH is an ACH payment processing platform
+ * Copyright (C) 2011 Steven Brendtro, ALL RIGHTS RESERVED
+ * 
+ * Refer to /legal/license.txt for license information, or view the full license
+ * online at http://openach.com/community/license.txt
+ ********************************************************************************/
+
+
+class OAIATBatchHeaderRecord extends OABatchHeaderRecord
+{
+	protected function initRecordFields()
+	{
+		$this->addField( 
+			array(
+				new ODDataFieldName( 'ach_record_type_code' ),
+				new ODStaticFieldValueEnforced( self::RECORD_TYPE_CODE ),
+				new ODFieldRuleEnforceNumeric(),
+				new ODFieldRuleLength( 1 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_header_service_class_code' ),
+				new ODFieldRuleEnforceNumeric(),
+				new ODFieldRulePadLeft( 3, ' ' ), 
+				new ODFieldRuleLength( 3 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_iat_indicator' ),
+				new ODFieldRulePadLeft( 16, ' ' ), 
+				new ODFieldRuleLength( 16 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_iat_foreign_exchange_indicator' ),
+				new ODFieldRulePadLeft( 2, ' ' ), 
+				new ODFieldRuleLength( 2 ),
+			)
+		);
+		
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_iat_foreign_exchange_ref_indicator' ),
+				new ODFieldRuleEnforceNumeric(),
+				new ODFieldRulePadLeft( 1, ' ' ), 
+				new ODFieldRuleLength( 1 ),
+			)
+		);
+		
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_iat_foreign_exchange_rate_ref' ),
+				new ODFieldRulePadLeft( 15, ' ' ), 
+				new ODFieldRuleLength( 15 ),
+			)
+		);
+		
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_iat_iso_dest_country_code' ),
+				new ODFieldRulePadLeft( 2, ' ' ), 
+				new ODFieldRuleLength( 2 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_header_company_identification' ),
+				new ODFieldRulePadLeft( 10, ' ' ), 
+				new ODFieldRuleLength( 10 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_header_standard_entry_class' ),
+				new ODFieldRulePadLeft( 3, ' ' ), 
+				new ODFieldRuleLength( 3 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_header_company_entry_description' ),
+				new ODFieldRulePadRight( 10, ' ' ), 
+				new ODFieldRuleLength( 10 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_iat_iso_orig_currency_code' ),
+				new ODFieldRulePadLeft( 3, ' ' ), 
+				new ODFieldRuleLength( 3 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_iat_iso_dest_currency_code' ),
+				new ODFieldRulePadLeft( 3, ' ' ), 
+				new ODFieldRuleLength( 3 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_header_effective_entry_date' ),
+				new ODFieldRulePadLeft( 6, ' ' ), 
+				new ODFieldRuleLength( 6 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_header_settlement_date' ),
+				new ODFieldRulePadLeft( 3, ' ' ), 
+				new ODFieldRuleLength( 3 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_header_originator_status_code' ),
+				new ODFieldRuleLength( 1 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_header_originating_dfi_id' ),
+				new ODFieldRulePadLeft( 8, ' ' ), 
+				new ODFieldRuleLength( 8 ),
+			)
+		);
+
+		$this->addField(
+			array(
+				new ODDataFieldName( 'ach_batch_header_batch_number' ),
+				new ODFieldRulePadLeft( 7, '0' ),
+				new ODFieldRuleLength( 7 ),
+			)
+		);
+
+	}
+	public function getStandardEntryClass()
+	{
+		return 'IAT';
+	}
+
+}
+
+
