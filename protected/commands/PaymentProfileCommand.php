@@ -31,6 +31,18 @@ class PaymentProfileCommand extends CConsoleCommand
 		Yii::app()->end();
 	}
 
+	public function actionViewByExternalId( $payment_profile_external_id )
+	{
+		if ( ! $paymentProfile = PaymentProfile::model()->findByAttributes( array( 'payment_profile_external_id' => $payment_profile_external_id ) ) )
+		{
+			echo 'Unable to find the payment profile with the external id ' . $payment_profile_external_id . PHP_EOL;
+			Yii::app()->end();
+		}
+
+		$this->displayPaymentProfile( $paymentProfile );
+		Yii::app()->end();
+	}
+
 	public function actionListExternalAccounts( $payment_profile_id )
 	{
 		if ( ! $paymentProfile = PaymentProfile::model()->findByPk( $payment_profile_id ) )
@@ -47,8 +59,6 @@ class PaymentProfileCommand extends CConsoleCommand
 		$criteria->join = 'LEFT JOIN payment_profile ON payment_profile_id = external_account_payment_profile_id ';
 		$criteria->params = array(
 				':payment_profile_id' => $payment_profile_id,
-				':originator_info_id' => $this->userApi->user_api_originator_info_id,
-				':closed' => 'closed',
 			);
 		$models = ExternalAccount::model()->findAll( $criteria );
 		if ( $models )
@@ -86,7 +96,7 @@ class PaymentProfileCommand extends CConsoleCommand
 		$paymentProfile->payment_profile_status = 'disabled';
 		if ( ! $paymentProfile->save() )
 		{
-			echo 'Unable to save payment profile: ' . var_dump($userApi->getErrors()) . PHP_EOL;
+			echo 'Unable to save payment profile: ' . var_dump($paymentProfile->getErrors()) . PHP_EOL;
 		}
 		echo 'Payment Profile ' . $payment_profile_id . ' disabled.' . PHP_EOL;
 		Yii::app()->end();
@@ -109,7 +119,7 @@ class PaymentProfileCommand extends CConsoleCommand
 		$paymentProfile->payment_profile_status = 'enabled';
 		if ( ! $paymentProfile->save() )
 		{
-			echo 'Unable to save payment profile: ' . var_dump($userApi->getErrors()) . PHP_EOL;
+			echo 'Unable to save payment profile: ' . var_dump($paymentProfile->getErrors()) . PHP_EOL;
 		}
 		echo 'Payment Profile ' . $payment_profile_id . ' enabled.' . PHP_EOL;
 		Yii::app()->end();
@@ -132,7 +142,7 @@ class PaymentProfileCommand extends CConsoleCommand
 		$paymentProfile->payment_profile_password = $this->hashPassword( $password );
 		if ( ! $paymentProfile->save() )
 		{
-			echo 'Unable to save payment profile: ' . var_dump($userApi->getErrors()) . PHP_EOL;
+			echo 'Unable to save payment profile: ' . var_dump($paymentProfile->getErrors()) . PHP_EOL;
 		}
 		echo 'Password set on payment profile ' . $payment_profile_id . PHP_EOL;
 		echo 'NOTE: External apps relying on the password field for authentication may no longer be able to authenticate this profile.' . PHP_EOL;
