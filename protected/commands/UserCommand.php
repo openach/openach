@@ -204,7 +204,7 @@ class UserCommand extends CConsoleCommand
 	}
 	
 
-	public function actionSetup( $user_id, $name, $identification, $routing_number, $account_number, $plugin='Manual' )
+	public function actionSetup( $user_id, $name, $identification, $routing_number, $account_number, $plugin='Manual', $settle=true )
 	{
 		if ( ! $user = User::model()->findByPk( $user_id ) )
 		{
@@ -265,25 +265,29 @@ class UserCommand extends CConsoleCommand
 			}
 			//$originatorInfo->refresh();
 
-			$externalAccount = new ExternalAccount();
-			$externalAccount->external_account_originator_info_id = $originatorInfo->originator_info_id;
-			$externalAccount->external_account_type = 'checking';
-			$externalAccount->external_account_name = $name . ' Settlement Account';
-			$externalAccount->external_account_bank = $routing->fedach_customer_name;
-			$externalAccount->external_account_holder = $name;
-			$externalAccount->external_account_dfi_id = $routing_number;
-			$externalAccount->external_account_dfi_id_qualifier = '01';
-			$externalAccount->external_account_number = $account_number;
-			$externalAccount->external_account_verification_status = 'completed';
-			$externalAccount->external_account_status = 'enabled';
-			//$externalAccount->external_account_business = true;
-			$externalAccount->external_account_business = 1;
-			$externalAccount->external_account_allow_originator_payments = true;
-			$externalAccount->external_account_payment_profile_id = '';
-
-			if ( ! $externalAccount->save() )
+			if ( $settle )
 			{
-				throw new Exception( 'Unable to save ExternalAccount: ' . var_export( $externalAccount->getErrors() ), true );
+
+				$externalAccount = new ExternalAccount();
+				$externalAccount->external_account_originator_info_id = $originatorInfo->originator_info_id;
+				$externalAccount->external_account_type = 'checking';
+				$externalAccount->external_account_name = $name . ' Settlement Account';
+				$externalAccount->external_account_bank = $routing->fedach_customer_name;
+				$externalAccount->external_account_holder = $name;
+				$externalAccount->external_account_dfi_id = $routing_number;
+				$externalAccount->external_account_dfi_id_qualifier = '01';
+				$externalAccount->external_account_number = $account_number;
+				$externalAccount->external_account_verification_status = 'completed';
+				$externalAccount->external_account_status = 'enabled';
+				//$externalAccount->external_account_business = true;
+				$externalAccount->external_account_business = 1;
+				$externalAccount->external_account_allow_originator_payments = true;
+				$externalAccount->external_account_payment_profile_id = '';
+
+				if ( ! $externalAccount->save() )
+				{
+					throw new Exception( 'Unable to save ExternalAccount: ' . var_export( $externalAccount->getErrors() ), true );
+				}
 			}
 
 			$creditPaymentType = new PaymentType();
@@ -292,12 +296,20 @@ class UserCommand extends CConsoleCommand
 			$creditPaymentType->payment_type_originator_info_id = $originatorInfo->originator_info_id;
 			$creditPaymentType->payment_type_name = 'Refund';
 			$creditPaymentType->payment_type_transaction_type = 'credit';
-			$creditPaymentType->payment_type_external_account_id = $externalAccount->external_account_id;
+
+			if ( $settle )
+			{
+				$creditPaymentType->payment_type_external_account_id = $externalAccount->external_account_id;
+			}
 			
 			$debitPaymentType->payment_type_originator_info_id = $originatorInfo->originator_info_id;
 			$debitPaymentType->payment_type_name = 'Payment';
 			$debitPaymentType->payment_type_transaction_type = 'debit';
-			$debitPaymentType->payment_type_external_account_id = $externalAccount->external_account_id;
+
+			if ( $settle )
+			{
+				$debitPaymentType->payment_type_external_account_id = $externalAccount->external_account_id;
+			}
 
 
 			if ( ! $creditPaymentType->save() )
@@ -323,8 +335,6 @@ class UserCommand extends CConsoleCommand
 		echo "\tOdfi Branch:\t" . $odfiBranch->odfi_branch_id . PHP_EOL;
 		echo PHP_EOL;
 	}
-
-
 
 	protected function displayUser( User $user )
 	{

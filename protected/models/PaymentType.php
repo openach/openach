@@ -44,7 +44,7 @@ class PaymentType extends OADataSource
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('payment_type_id, payment_type_originator_info_id, payment_type_name, payment_type_external_account_id', 'required'),
+			array('payment_type_id, payment_type_originator_info_id, payment_type_name', 'required'),
 			array('payment_type_id, payment_type_originator_info_id, payment_type_external_account_id', 'length', 'max'=>36),
 			array('payment_type_description', 'length', 'max'=>255),
 			array('payment_type_name', 'length', 'max'=>10),
