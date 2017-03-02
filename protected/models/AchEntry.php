@@ -291,6 +291,12 @@ class AchEntry extends OADataSource
 
 	public function behaviors(){
 		return array(
+			'CTruncateBehavior' => array(
+				'class' => 'application.behaviors.CTruncateBehavior',
+				'attributeList' => array(
+					'ach_entry_detail_individual_name'	=> 35,
+				),
+			),
 			'CEncryptionBehavior' => array(
 				'class' => 'application.behaviors.CEncryptionBehavior',
 				'attributeList' => array (
