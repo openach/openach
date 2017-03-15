@@ -113,6 +113,38 @@ abstract class OABankConfig extends OAPluginConfig
 
 	}
 
+	public function getRecordConfig()
+	{
+		$config = $this->getConfig('record_config');
+		return json_decode( $config );
+	}
+
+	public function setRecordConfig($config)
+	{
+		$this->configState['record_config'] = $config;
+	}
+
+	public function beforeRecordSave( OADataSource $dataSource)
+	{
+		$config = $this->getRecordConfig();
+
+		if ( ! $config )
+		{
+			return;
+		} 
+
+		foreach ( $config as $className => $override )
+		{
+			if ( get_class( $dataSource ) == $className )
+			{
+				foreach ( $override as $key => $value )
+				{
+					$dataSource->{$key} = $value;
+				}
+			}
+		}
+	}
+
 	protected function initConfig()
 	{
 		return;

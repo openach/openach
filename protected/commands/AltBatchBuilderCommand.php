@@ -186,6 +186,7 @@ class AltBatchBuilderCommand extends CConsoleCommand
 							$achFile->ach_file_control_entry_addenda_count += $batchEntryAddendaCount;
 
 
+							$odfiBranch->getBankConfig()->beforeRecordSave( $achBatch );
 							if ( ! $achBatch->save() )
 							{
 								throw new Exception( 'Unable to save batch after recalculating totals.' );
@@ -225,6 +226,7 @@ class AltBatchBuilderCommand extends CConsoleCommand
 
 				echo 'Saving AchFile [' . $achFile->ach_file_id . '] with ' . $achFile->ach_file_control_entry_addenda_count . ' entries and ' . $achFile->ach_file_control_batch_count . ' batches.' . PHP_EOL;
 
+				$odfiBranch->getBankConfig()->beforeRecordSave( $achFile );
 				if ( ! $achFile->save() )
 				{
 					throw new Exception( 'Unable to save file after recalculating totals.' );

@@ -50,8 +50,11 @@ class BankPluginCommand extends CConsoleCommand
 		}
 
 		echo "Using Bank Plugin: " .  $odfiBranch->odfi_branch_plugin . PHP_EOL;
-		echo "Configuration:" . PHP_EOL;
-		echo json_encode( $config->getTransferConfig() ) . PHP_EOL;
+		echo "Transfer Configuration:" . PHP_EOL;
+		echo json_encode( $config->getTransferConfig() ) . PHP_EOL . PHP_EOL;
+
+		echo "Record Configuration:" . PHP_EOL;
+		echo json_encode( $config->getRecordConfig() ) . PHP_EOL . PHP_EOL;
 
 		Yii::app()->end();
 
@@ -86,6 +89,34 @@ class BankPluginCommand extends CConsoleCommand
 		echo json_encode( $transferConfig ) . PHP_EOL;
 
 	}
+
+	public function actionUpdateRecordConfig( $odfi_branch_id, $newConfig )
+	{
+		if ( ! $odfiBranch = OdfiBranch::model()->findByPk( $odfi_branch_id ) )
+		{
+			throw new Exception( 'Unable to find ODFI Branch ' . $odfi_branch_id );
+		}
+
+		$config = $odfiBranch->getBankConfig();
+
+		if ( ! $config )
+		{
+			throw new Exception( 'Unable to load config.' );
+		}
+
+		$decoded = json_decode( $newConfig );
+
+		if ( $decoded === null )
+		{
+			throw new Exception( 'Unable to json_decode the specified config.' );
+		}
+
+		$config->setRecordConfig( $newConfig );
+		$config->store( $odfi_branch_id );
+
+		Yii::app()->end();
+	}
+
 
 	public function actionUpdateTransferConfig( $odfi_branch_id, $newConfig )
 	{

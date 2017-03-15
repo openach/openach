@@ -40,7 +40,7 @@ class OAPPDBatchHeaderRecord extends OABatchHeaderRecord
 		$this->addField(
 			array(
 				new ODDataFieldName( 'ach_batch_header_discretionary_data' ),
-				new ODFieldRulePadLeft( 20, ' ' ), 
+				new ODFieldRulePadRight( 20, ' ' ), 
 				new ODFieldRuleLength( 20 ),
 			)
 		);
