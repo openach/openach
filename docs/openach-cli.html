@@ -1,0 +1,408 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>OpenACH CLI</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"><style>@import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200');@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,700|Source+Code+Pro');.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}.right .hljs-comment{color:#969896}.right .css .hljs-class,.right .css .hljs-id,.right .css .hljs-pseudo,.right .hljs-attribute,.right .hljs-regexp,.right .hljs-tag,.right .hljs-variable,.right .html .hljs-doctype,.right .ruby .hljs-constant,.right .xml .hljs-doctype,.right .xml .hljs-pi,.right .xml .hljs-tag .hljs-title{color:#c66}.right .hljs-built_in,.right .hljs-constant,.right .hljs-literal,.right .hljs-number,.right .hljs-params,.right .hljs-pragma,.right .hljs-preprocessor{color:#de935f}.right .css .hljs-rule .hljs-attribute,.right .ruby .hljs-class .hljs-title{color:#f0c674}.right .hljs-header,.right .hljs-inheritance,.right .hljs-name,.right .hljs-string,.right .hljs-value,.right .ruby .hljs-symbol,.right .xml .hljs-cdata{color:#b5bd68}.right .css .hljs-hexcolor,.right .hljs-title{color:#8abeb7}.right .coffeescript .hljs-title,.right .hljs-function,.right .javascript .hljs-title,.right .perl .hljs-sub,.right .python .hljs-decorator,.right .python .hljs-title,.right .ruby .hljs-function .hljs-title,.right .ruby .hljs-title .hljs-keyword{color:#81a2be}.right .hljs-keyword,.right .javascript .hljs-function{color:#b294bb}.right .hljs{display:block;overflow-x:auto;background:#1d1f21;color:#c5c8c6;padding:.5em;-webkit-text-size-adjust:none}.right .coffeescript .javascript,.right .javascript .xml,.right .tex .hljs-formula,.right .xml .css,.right .xml .hljs-cdata,.right .xml .javascript,.right .xml .vbscript{opacity:.5}.hljs-comment{color:#969896}.css .hljs-class,.css .hljs-id,.css .hljs-pseudo,.hljs-attribute,.hljs-regexp,.hljs-tag,.hljs-variable,.html .hljs-doctype,.ruby .hljs-constant,.xml .hljs-doctype,.xml .hljs-pi,.xml .hljs-tag .hljs-title{color:#77A619}.hljs-literal{color:#A69819}.hljs-built_in,.hljs-constant,.hljs-number,.hljs-params,.hljs-pragma,.hljs-preprocessor{color:#1B88B3}.css .hljs-rule .hljs-attribute,.ruby .hljs-class .hljs-title{color:#A37518}.hljs-header,.hljs-inheritance,.hljs-name,.hljs-string,.hljs-value,.ruby .hljs-symbol,.xml .hljs-cdata{color:inherit}.coffeescript .hljs-title,.css .hljs-hexcolor,.hljs-function,.hljs-title,.javascript .hljs-title,.perl .hljs-sub,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword{color:#A63A4A}.hljs-keyword,.javascript .hljs-function{color:#A69819}.hljs{display:block;overflow-x:auto;background:#1d1f21;color:#c5c8c6;padding:.5em;-webkit-text-size-adjust:none}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .css,.xml .hljs-cdata,.xml .javascript,.xml .vbscript{opacity:.5}.right .hljs-comment{color:#969896}.right .css .hljs-class,.right .css .hljs-id,.right .css .hljs-pseudo,.right .hljs-attribute,.right .hljs-regexp,.right .hljs-tag,.right .hljs-variable,.right .html .hljs-doctype,.right .ruby .hljs-constant,.right .xml .hljs-doctype,.right .xml .hljs-pi,.right .xml .hljs-tag .hljs-title{color:#C1EF65}.right .hljs-literal{color:#EBDE68}.right .hljs-built_in,.right .hljs-constant,.right .hljs-number,.right .hljs-params,.right .hljs-pragma,.right .hljs-preprocessor{color:#77BCD7}.right .css .hljs-rule .hljs-attribute,.right .ruby .hljs-class .hljs-title{color:#f0c674}.right .hljs-header,.right .hljs-inheritance,.right .hljs-name,.right .hljs-string,.right .hljs-value,.right .ruby .hljs-symbol,.right .xml .hljs-cdata{color:inherit}.right .coffeescript .hljs-title,.right .css .hljs-hexcolor,.right .hljs-function,.right .hljs-title,.right .javascript .hljs-title,.right .perl .hljs-sub,.right .python .hljs-decorator,.right .python .hljs-title,.right .ruby .hljs-function .hljs-title,.right .ruby .hljs-title .hljs-keyword{color:#f099a6}.right .hljs-keyword,.right .javascript .hljs-function{color:#EBDE68}.right .hljs{display:block;overflow-x:auto;background:#1d1f21;color:#c5c8c6;padding:.5em;-webkit-text-size-adjust:none}.right .coffeescript .javascript,.right .javascript .xml,.right .tex .hljs-formula,.right .xml .css,.right .xml .hljs-cdata,.right .xml .javascript,.right .xml .vbscript{opacity:.5}body{color:#4c555a;background:white;font:400 14px / 1.42 'Roboto',Helvetica,sans-serif}header{border-bottom:1px solid transparent;margin-bottom:12px}h1,h2,h3,h4,h5{color:#292e31;margin:12px 0}h1 .permalink,h2 .permalink,h3 .permalink,h4 .permalink,h5 .permalink{margin-left:0;opacity:0;transition:opacity .25s ease}h1:hover .permalink,h2:hover .permalink,h3:hover .permalink,h4:hover .permalink,h5:hover .permalink{opacity:1}.triple h1 .permalink,.triple h2 .permalink,.triple h3 .permalink,.triple h4 .permalink,.triple h5 .permalink{opacity:.15}.triple h1:hover .permalink,.triple h2:hover .permalink,.triple h3:hover .permalink,.triple h4:hover .permalink,.triple h5:hover .permalink{opacity:.15}h1{font:100 36px 'Roboto',Helvetica,sans-serif;font-size:36px}h2{font:100 36px 'Roboto',Helvetica,sans-serif;font-size:30px}h3{font-size:100%;text-transform:uppercase}h5{font-size:100%;font-weight:normal}p{margin:0 0 10px}p.choices{line-height:1.6}a{color:#0099e5;text-decoration:none}li p{margin:0}hr.split{border:0;height:1px;width:100%;padding-left:6px;margin:12px auto;background-image:linear-gradient(to right, rgba(76,85,90,0) 20%, rgba(76,85,90,0.2) 48%, rgba(221,228,232,0.2) 48%, rgba(221,228,232,0) 80%)}dl dt{float:left;width:130px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}dl dd{margin-left:150px}blockquote{color:rgba(76,85,90,0.5);font-size:15.5px;padding:10px 20px;margin:12px 0;border-left:5px solid #e8e8e8}blockquote p:last-child{margin-bottom:0}pre{background-color:#f5f5f5;padding:12px;border:1px solid #cfcfcf;border-radius:3px;overflow:auto}pre code{color:#4c555a;background-color:transparent;padding:0;border:none}code{color:#b93d6a;background-color:#f5f5f5;font:13px / 19.5px 'Source Code Pro',Menlo,monospace;padding:1px 4px;border:1px solid #cfcfcf;border-radius:3px}ul,ol{padding-left:2em}table{border-collapse:collapse;border-spacing:0;margin-bottom:12px}table tr:nth-child(2n){background-color:#fafafa}table th,table td{padding:6px 12px;border:1px solid #e6e6e6}.text-muted{opacity:.5}.note,.warning{padding:.3em 1em;margin:1em 0;border-radius:2px;font-size:90%}.note h1,.warning h1,.note h2,.warning h2,.note h3,.warning h3,.note h4,.warning h4,.note h5,.warning h5,.note h6,.warning h6{font-family:100 36px 'Roboto',Helvetica,sans-serif;font-size:135%;font-weight:500}.note p,.warning p{margin:.5em 0}.note{color:#4c555a;background-color:#ebf7fd;border-left:4px solid #0099e5}.note h1,.note h2,.note h3,.note h4,.note h5,.note h6{color:#0099e5}.warning{color:#4c555a;background-color:#faf0f4;border-left:4px solid #B82E5F}.warning h1,.warning h2,.warning h3,.warning h4,.warning h5,.warning h6{color:#B82E5F}header{margin-top:24px}nav{position:fixed;top:24px;bottom:0;overflow-y:auto}nav .resource-group{padding:0}nav .resource-group .heading{position:relative}nav .resource-group .heading .chevron{position:absolute;top:12px;right:12px;opacity:.5}nav .resource-group .heading a{display:block;color:#4c555a;opacity:.7;border-left:2px solid transparent;margin:0}nav .resource-group .heading a:hover{text-decoration:underline;background-color:transparent;border-left:2px solid transparent}nav ul{list-style-type:none;padding-left:0}nav ul a{display:block;font-size:13px;color:rgba(76,85,90,0.7);padding:8px 12px;border-top:1px solid transparent;border-left:2px solid transparent;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}nav ul a:hover{text-decoration:underline;background-color:transparent;border-left:2px solid transparent}nav ul>li{margin:0}nav ul>li:first-child{margin-top:-12px}nav ul>li:last-child{margin-bottom:-12px}nav ul ul a{padding-left:24px}nav ul ul li{margin:0}nav ul ul li:first-child{margin-top:0}nav ul ul li:last-child{margin-bottom:0}nav>div>div>ul>li:first-child>a{border-top:none}.preload *{transition:none !important}.pull-left{float:left}.pull-right{float:right}.badge{display:inline-block;float:right;min-width:10px;min-height:14px;padding:3px 7px;font-size:12px;color:black;background-color:transparent;border-radius:10px;margin:-2px -8px -2px 0}.badge.get{color:#fff;background-color:#ddf1fc}.badge.head{color:#fff;background-color:#ddf1fc}.badge.options{color:#fff;background-color:#ddf1fc}.badge.put{color:#fff;background-color:#f7f2c3}.badge.patch{color:#fff;background-color:#f7f2c3}.badge.post{color:#fff;background-color:#e4f2c8}.badge.delete{color:#fff;background-color:#f2d8e1}.collapse-button{float:right}.collapse-button .close{display:none;color:#0099e5;cursor:pointer}.collapse-button .open{color:#0099e5;cursor:pointer}.collapse-button.show .close{display:inline}.collapse-button.show .open{display:none}.collapse-content{max-height:0;overflow:hidden;transition:max-height .3s ease-in-out}nav{width:220px}.container{max-width:940px;margin-left:auto;margin-right:auto}.container .row .content{margin-left:244px;width:696px}.container .row:after{content:'';display:block;clear:both}.container-fluid nav{width:22%}.container-fluid .row .content{margin-left:24%}.container-fluid.triple nav{width:15%;padding-right:1px}.container-fluid.triple .row .content{position:relative;margin-left:15%;padding-left:24px}.middle:before,.middle:after{content:'';display:table}.middle:after{clear:both}.middle{box-sizing:border-box;width:48%;padding-right:12px}.right{box-sizing:border-box;float:right;width:52%;padding-left:12px}.right a{color:#0099e5}.right h1,.right h2,.right h3,.right h4,.right h5,.right p,.right div{color:#dde4e8}.right pre{background-color:#272B2D;border:1px solid #272B2D}.right pre code{color:#D0D0D0}.right .description{margin-top:12px}.triple .resource-heading{font-size:125%}.definition{margin-top:12px;margin-bottom:12px}.definition .method{font-weight:bold}.definition .method.get{color:#2e8ab8}.definition .method.head{color:#2e8ab8}.definition .method.options{color:#2e8ab8}.definition .method.post{color:#8ab82e}.definition .method.put{color:#b8aa2e}.definition .method.patch{color:#b8aa2e}.definition .method.delete{color:#b82e5f}.definition .uri{word-break:break-all;word-wrap:break-word}.definition .hostname{opacity:.5}.example-names{background-color:#eee;padding:12px;border-radius:3px}.example-names .tab-button{cursor:pointer;color:#4c555a;border:1px solid #ddd;padding:6px;margin-left:12px}.example-names .tab-button.active{background-color:#d5d5d5}.right .example-names{background-color:#424648}.right .example-names .tab-button{color:#dde4e8;border:1px solid #6C6F71;border-radius:3px}.right .example-names .tab-button.active{background-color:#5a6063}#nav-background{position:fixed;left:0;top:0;bottom:0;width:15%;padding-right:14.4px;background-color:#fafcfc;border-right:1px solid #f0f4f7;z-index:-1}#right-panel-background{position:absolute;right:-12px;top:-12px;bottom:-12px;width:52%;background-color:#2d3134;z-index:-1}@media (max-width:1200px){nav{width:198px}.container{max-width:840px}.container .row .content{margin-left:224px;width:606px}}@media (max-width:992px){nav{width:169.4px}.container{max-width:720px}.container .row .content{margin-left:194px;width:526px}}@media (max-width:768px){nav{display:none}.container{width:95%;max-width:none}.container .row .content,.container-fluid .row .content,.container-fluid.triple .row .content{margin-left:auto;margin-right:auto;width:95%}#nav-background{display:none}#right-panel-background{width:52%}}.back-to-top{position:fixed;z-index:1;bottom:0;right:24px;padding:4px 8px;color:rgba(76,85,90,0.5);background-color:transparent;text-decoration:none !important;border-top:1px solid transparent;border-left:1px solid transparent;border-right:1px solid transparent;border-top-left-radius:3px;border-top-right-radius:3px}.resource-group{padding:12px 12px 12px 0;margin-bottom:12px;background-color:transparent;border:1px solid transparent;border-radius:3px}.resource-group h2.group-heading,.resource-group .heading a{padding:12px 12px 12px 0;margin:0 0 12px 0;background-color:transparent;border-bottom:1px solid transparent;border-top-left-radius:3px;border-top-right-radius:3px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.triple .content .resource-group{padding:0;border:none}.triple .content .resource-group h2.group-heading,.triple .content .resource-group .heading a{margin:0 0 12px 0;border:1px solid transparent}nav .resource-group .heading a{padding:12px;margin-bottom:0}nav .resource-group .collapse-content{padding:0}.action{margin-bottom:12px;padding:12px 12px 0 12px;overflow:hidden;border:1px solid transparent;border-radius:3px}.action h4.action-heading{padding:6px 12px;margin:-12px -12px 12px -12px;border-bottom:1px solid transparent;border-top-left-radius:3px;border-top-right-radius:3px;overflow:hidden}.action h4.action-heading .name{float:right;font-weight:normal;padding:6px 0}.action h4.action-heading .method{padding:6px 12px;margin-right:12px;border-radius:2px;display:inline-block}.action h4.action-heading .method.get{color:#fff;background-color:#0099e5}.action h4.action-heading .method.head{color:#fff;background-color:#0099e5}.action h4.action-heading .method.options{color:#fff;background-color:#0099e5}.action h4.action-heading .method.put{color:#fff;background-color:#b1a74e}.action h4.action-heading .method.patch{color:#fff;background-color:#b1a74e}.action h4.action-heading .method.post{color:#fff;background-color:#85a546}.action h4.action-heading .method.delete{color:#fff;background-color:#c14a74}.action h4.action-heading code{color:#444;background-color:#f5f5f5;border-color:#cfcfcf;font-weight:normal;word-break:break-all;display:inline-block;margin-top:2px}.action dl.inner{padding-bottom:2px}.action .title{border-bottom:1px solid transparent;margin:0 -12px -1px -12px;padding:12px}.action.get{border-color:#ddf1fc}.action.get h4.action-heading{color:#0099e5;background:#ddf1fc;border-bottom-color:#ddf1fc}.action.head{border-color:#ddf1fc}.action.head h4.action-heading{color:#0099e5;background:#ddf1fc;border-bottom-color:#ddf1fc}.action.options{border-color:#ddf1fc}.action.options h4.action-heading{color:#0099e5;background:#ddf1fc;border-bottom-color:#ddf1fc}.action.post{border-color:#e4f2c8}.action.post h4.action-heading{color:#85a546;background:#e4f2c8;border-bottom-color:#e4f2c8}.action.put{border-color:#f7f2c3}.action.put h4.action-heading{color:#b1a74e;background:#f7f2c3;border-bottom-color:#f7f2c3}.action.patch{border-color:#f7f2c3}.action.patch h4.action-heading{color:#b1a74e;background:#f7f2c3;border-bottom-color:#f7f2c3}.action.delete{border-color:#f2d8e1}.action.delete h4.action-heading{color:#c14a74;background:#f2d8e1;border-bottom-color:#f2d8e1}</style></head><body class="preload"><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><nav><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#top">Overview</a></div><div class="collapse-content"><ul><li><a href="#header-getting-started">Getting Started</a></li><li><a href="#header-initializing-third-party-data">Initializing Third Party Data</a></li><li><a href="#header-create-new-user">Create New User</a></li><li><a href="#header-setup-origination-account">Setup Origination Account</a></li></ul></div></div></nav><div class="content"><header><h1 id="top">OpenACH CLI</h1></header><p>OpenACH comes with a command line interface (CLI) that can be used to manage just about everything pertaining to the platform. Because it is used as the primary interface for OpenACH adminsitration, you will need to be comfortable with the Linux command line basics before proceeding.</p>
+<p>The CLI is located in the <em>protected/</em> folder of your OpenACH install. You may notice that it is a symbolic link to the yiic command runner. Because OpenACH is built on top of the YII framework, it relies on the framework to run commands. You can substitute yiic for openach in any of the following examples. To see a list of available commands, run <em>./openach</em> in the <em>protected/</em> folder of your OpenACH install:</p>
+<pre><code># cd /home/www/openach/protected/
+# ./openach
+Yii command runner (based on Yii v1.1.16)
+Usage: ./openach  [parameters...]
+
+The following commands are available:
+ -<span class="ruby"> altbatchbuilder
+</span> -<span class="ruby"> apiuser
+</span> -<span class="ruby"> bankplugin
+</span> -<span class="ruby"> batchbuilder
+</span> -<span class="ruby"> confirmationprocessor
+</span> -<span class="ruby"> cronnightly
+</span> -<span class="ruby"> encryptionutility
+</span> -<span class="ruby"> externalaccount
+</span> -<span class="ruby"> fedachupdate
+</span> -<span class="ruby"> filebuilder
+</span> -<span class="ruby"> hashindexer
+</span> -<span class="ruby"> message
+</span> -<span class="ruby"> migrate
+</span> -<span class="ruby"> ofacupdate
+</span> -<span class="ruby"> paymentprofile
+</span> -<span class="ruby"> paymentscheduler
+</span> -<span class="ruby"> phoneticindexer
+</span> -<span class="ruby"> profilesimulator
+</span> -<span class="ruby"> returnchangeprocessor
+</span> -<span class="ruby"> setup
+</span> -<span class="ruby"> shell
+</span> -<span class="ruby"> user
+</span> -<span class="ruby"> webapp
+</span>
+To see individual command help, use the following:
+   ./openach help</code></pre>
+<p>To get help on a specific command, use the help action. For instance, to see help for the user command:</p>
+<pre><code><span class="hljs-preprocessor"># ./openach help user</span>
+Usage: ./openach user 
+Actions:
+    create --user_login=<span class="hljs-keyword">value</span> --user_password=<span class="hljs-keyword">value</span> --user_email_address=<span class="hljs-keyword">value</span> --user_first_name=<span class="hljs-keyword">value</span> --user_last_name=<span class="hljs-keyword">value</span>
+    changePassword --user_login=<span class="hljs-keyword">value</span> --user_password=<span class="hljs-keyword">value</span>
+    view --user_id=<span class="hljs-keyword">value</span>
+    disable --user_id=<span class="hljs-keyword">value</span>
+    enable --user_id=<span class="hljs-keyword">value</span>
+    setup --user_id=<span class="hljs-keyword">value</span> --name=<span class="hljs-keyword">value</span> --identification=<span class="hljs-keyword">value</span> --routing_number=<span class="hljs-keyword">value</span> --account_number=<span class="hljs-keyword">value</span></code></pre>
+<h2 id="header-getting-started">Getting Started <a class="permalink" href="#header-getting-started" aria-hidden="true">¶</a></h2>
+<h3 id="header-initializing-third-party-data">Initializing Third Party Data <a class="permalink" href="#header-initializing-third-party-data" aria-hidden="true">¶</a></h3>
+<p>NOTE: If you are running the Docker image, or copied the distributed SQLite database file, you already have this data loaded. However, as there may be updates from time to time, you will want to reload this data before using in production.</p>
+<p>OpenACH relies on a few third party data sources to populate its FedACH and OFAC-related tables. Thanks to the command line interface, loading and refreshing this data is simple:</p>
+<p>First, load the FedACH directory:</p>
+<pre><code><span class="hljs-comment"># ./openach fedachupdate reloadAll</span>
+Opening <span class="hljs-built_in">file</span> <span class="hljs-keyword">https</span>://www.frbservices.org/EPaymentsDirectory/FedACHdir.txt <span class="hljs-keyword">for</span> import.
+Parsing <span class="hljs-built_in">file</span>... (this may take <span class="hljs-operator">a</span> moment)
+Processed <span class="hljs-number">20019</span> <span class="hljs-keyword">lines</span>.
+Saved <span class="hljs-number">20019</span> records.
+Opening <span class="hljs-built_in">file</span> <span class="hljs-keyword">https</span>://www.frbservices.org/EPaymentsDirectory/fpddir.txt <span class="hljs-keyword">for</span> import.
+Parsing <span class="hljs-built_in">file</span>... (this may take <span class="hljs-operator">a</span> moment)
+Processed <span class="hljs-number">8694</span> <span class="hljs-keyword">lines</span>.
+Saved <span class="hljs-number">8694</span> records.</code></pre>
+<p>You can also update the OFAC lists, which are useful for implementing KYC/AML procedures on the OpenACH platform. Note that loading these lists can take a while:</p>
+<pre><code><span class="hljs-comment"># ./openach ofacupdate reloadAll</span>
+Opening <span class="hljs-built_in">file</span> <span class="hljs-keyword">http</span>://www.treasury.gov/ofac/downloads/sdn.ff <span class="hljs-keyword">for</span> import.
+Parsing <span class="hljs-built_in">file</span>... (this may take <span class="hljs-operator">a</span> moment)
+Processed <span class="hljs-number">5738</span> <span class="hljs-keyword">lines</span>.
+Saved <span class="hljs-number">5738</span> records.
+Opening <span class="hljs-built_in">file</span> <span class="hljs-keyword">http</span>://www.treasury.gov/ofac/downloads/alt.ff <span class="hljs-keyword">for</span> import.
+Parsing <span class="hljs-built_in">file</span>... (this may take <span class="hljs-operator">a</span> moment)
+Processed <span class="hljs-number">6855</span> <span class="hljs-keyword">lines</span>.
+Saved <span class="hljs-number">6855</span> records.
+Opening <span class="hljs-built_in">file</span> <span class="hljs-keyword">http</span>://www.treasury.gov/ofac/downloads/<span class="hljs-built_in">add</span>.ff <span class="hljs-keyword">for</span> import.
+Parsing <span class="hljs-built_in">file</span>... (this may take <span class="hljs-operator">a</span> moment)
+Processed <span class="hljs-number">10473</span> <span class="hljs-keyword">lines</span>.
+Saved <span class="hljs-number">10473</span> records.</code></pre>
+<h3 id="header-create-new-user">Create New User <a class="permalink" href="#header-create-new-user" aria-hidden="true">¶</a></h3>
+<p>Once you have successfully installed OpenACH, the first step to a functional system is to create a user under which origination accounts can be set up.</p>
+<pre><code># ./openach user <span class="hljs-operator"><span class="hljs-keyword">create</span> <span class="hljs-comment">--user_login=johndoe --user_password=supersecret --user_email_address=johndoe@email.com --user_first_name=John --user_last_name=Doe</span>
+Creating <span class="hljs-keyword">new</span> <span class="hljs-keyword">User</span>...
+<span class="hljs-keyword">User</span>: 
+    <span class="hljs-keyword">User</span> <span class="hljs-keyword">ID</span>:        ced64f44-<span class="hljs-number">1959</span>-<span class="hljs-number">443</span><span class="hljs-keyword">d</span>-a38f-<span class="hljs-number">0178</span>f650050d
+    Login:            johndoe
+    <span class="hljs-keyword">First</span> <span class="hljs-keyword">Name</span>:        John
+    <span class="hljs-keyword">Last</span> <span class="hljs-keyword">Name</span>:        Doe
+    <span class="hljs-keyword">Status</span>:            enabled
+</span></code></pre>
+<h3 id="header-setup-origination-account">Setup Origination Account <a class="permalink" href="#header-setup-origination-account" aria-hidden="true">¶</a></h3>
+<p>This new user can’t do much without an origination account.   An origination account represents a banking relationship through which you will be processing your NACHA files.</p>
+<p>While you could use the web interface to set up each piece individually, it’s much quicker to use the user setup utility. Note that you will need to specify the User ID generated from the previous command.</p>
+<p>The <em>identification</em> field should be an EIN (Tax ID) for the business through which they are setting up the origination account. The <em>routing_number</em> and <em>account_number</em> fields are for the origination account at the bank where it was set up.  Feel free to use the sample values in the examples below for now if you would like to just try things out.  At the very least, you will need to use a valid routing number, as OpenACH validates this against the data loaded via the <em>fedAchUpdate</em> command (see <strong>Initializing Third-Party Data</strong> above).</p>
+<p>There are two methodologies that can be used to process your payments: with settlement or without settlement. If you send a debit ACH transaction to your processor and need the funds to move somewhere else after they land at your bank, you need to set up OpenACH with settlement. If you don’t need to move the funds, or if your processor automatically moves the funds for you, you will set up OpenACH without settlement.</p>
+<p>####Processing with Settlement</p>
+<p>By default, the user setup command will build a settlement account for you using the routing and account number you provide. This can be updated after setup by editing the external account record created during setup. NOTE: When using OpenACH version 1.5 and higher, you can also specify the --plugin parameter to select the bank plugin you wish to use.</p>
+<pre><code><span class="hljs-preprocessor"># ./openach user setup --user_id=ced64f44-<span class="hljs-number">1959</span>-<span class="hljs-number">443</span>d-a38f-<span class="hljs-number">0178f</span>650050d --name=<span class="hljs-string">"Test Originator"</span> --identification=<span class="hljs-number">112358130</span> --routing_number=<span class="hljs-number">101000187</span> --account_number=<span class="hljs-number">1234567890</span></span>
+User: 
+    Originator:        <span class="hljs-number">0e69</span>c027-a9d4-<span class="hljs-number">466</span>c-<span class="hljs-number">9f</span>89-bbc47c8eb771
+    Originator Info:    c38b6230-f8c9-<span class="hljs-number">45</span>dc-<span class="hljs-number">9</span>a86-<span class="hljs-number">5</span>a32bc8d60d8
+    Odfi Branch:    d38457a9-beff-<span class="hljs-number">4070</span>-afc0-<span class="hljs-number">501</span>c5b856f89</code></pre>
+<p>####Processing without Settlement</p>
+<p>In cases where you don’t need to move funds after processing the transactions, or if your ACH processor automatically moves the funds for you, you can set up your originator to process without settlement by using the --settle=0 flag on the setup command.</p>
+<pre><code><span class="hljs-preprocessor"># ./openach user setup  --user_id=ced64f44-<span class="hljs-number">1959</span>-<span class="hljs-number">443</span>d-a38f-<span class="hljs-number">0178f</span>650050d --name=<span class="hljs-string">"Test Originator"</span> --identification=<span class="hljs-number">112358130</span> --routing_number=<span class="hljs-number">101000187</span> --account_number=<span class="hljs-number">1234567890</span> --plugin=SagePay --settle=<span class="hljs-number">0</span></span>
+User: 
+    Originator:        <span class="hljs-number">0e69</span>c027-a9d4-<span class="hljs-number">466</span>c-<span class="hljs-number">9f</span>89-bbc47c8eb771
+    Originator Info:    c38b6230-f8c9-<span class="hljs-number">45</span>dc-<span class="hljs-number">9</span>a86-<span class="hljs-number">5</span>a32bc8d60d8
+    Odfi Branch:    d38457a9-beff-<span class="hljs-number">4070</span>-afc0-<span class="hljs-number">501</span>c5b856f89</code></pre>
+<p>###Continuing Setup</p>
+<p>If all goes well, you will get an ID for the Originator (the legal parent entity), the Originator Info (a particular origination account at a particular bank), and a Settlement Account (aka odfi_branch) that may or may not be linked to an External Account (depending on your choice of settlement above). It also created some Payment Types, and other odds and ends for you. Make a note of this information as you will need it later for configuring various aspects of OpenACH. If you forget it, you can always find it back using a few of the CLI user commands :</p>
+<pre><code><span class="hljs-preprocessor"># ./openach user viewAll --user_login=johndoe</span>
+<span class="hljs-preprocessor"># ./openach user viewOriginators --user_id=<span class="hljs-number">5</span>ae92cd5-<span class="hljs-number">5266</span>-<span class="hljs-number">47</span>ea-bb0d-<span class="hljs-number">0</span>cfba5b95e38</span>
+User: 
+    ID:        <span class="hljs-number">5</span>ae92cd5-<span class="hljs-number">5266</span>-<span class="hljs-number">47</span>ea-bb0d-<span class="hljs-number">0</span>cfba5b95e38
+    Login:        johndoe
+    First Name:        John
+    Last Name:        Doe
+    Status:            enabled
+
+    Originator: 
+        ID:        <span class="hljs-number">63845</span>b3f-c71a-<span class="hljs-number">4478</span>-<span class="hljs-number">93</span>dd-<span class="hljs-number">86</span>eff24123b6
+        Name:        Test Originator
+
+        Originator Info: 
+            ID:        aa4361bf-<span class="hljs-number">5052</span>-<span class="hljs-number">4</span>be8-b993-<span class="hljs-number">728</span>bedb20632
+            Name:        Test Originator
+
+        Odfi Branch: 
+            ID:        d38457a9-beff-<span class="hljs-number">4070</span>-afc0-<span class="hljs-number">501</span>c5b856f89
+            Name:        Test Originator House Account
+            Plugin:        SagePay</code></pre>
+<p>Earlier versions of OpenACH don’t include the Odfi Branch (Settlement Account) information when inspecting the originator. The simplest way to find it is to look in the database:</p>
+<pre><code><span class="hljs-preprocessor"># sqlite3 runtime/db/openach.db </span>
+SQLite version <span class="hljs-number">3.8</span><span class="hljs-number">.2</span> <span class="hljs-number">2013</span>-<span class="hljs-number">12</span>-<span class="hljs-number">06</span> <span class="hljs-number">14</span>:<span class="hljs-number">53</span>:<span class="hljs-number">30</span>
+Enter <span class="hljs-string">".help"</span> <span class="hljs-keyword">for</span> instructions
+Enter SQL statements terminated <span class="hljs-keyword">with</span> a <span class="hljs-string">";"</span>
+sqlite&gt; <span class="hljs-keyword">SELECT</span> originator_info_odfi_branch_id <span class="hljs-keyword">FROM</span> originator_info <span class="hljs-keyword">WHERE</span> originator_info_originator_id = <span class="hljs-comment">'63845b3f-c71a-4478-93dd-86eff24123b6'</span>
+d38457a9-beff-<span class="hljs-number">4070</span>-afc0-<span class="hljs-number">501</span>c5b856f89
+sqlite&gt; .quit</code></pre>
+<p>###Bank Plugins</p>
+<p>By default, your account is configured with the Manual plugin, which produces NACHA files that you can manually transfer to your bank however you wish. You are free to configure your origination account to use any included plugin, or even develop your own. The OpenACH CLI includes a utility to manage the plugins. You will need to know the odfi_branch_id of your settlement account (see above).</p>
+<p>NOTE! Bank plugin management via the CLI isn’t included in earlier versions of OpenACH. You will need version 1.5 or higher. The latest Docker image typically has the newest version, so you should be good.</p>
+<pre><code>./openach bankPlugin
+
+Usage: ./openach bankplugin 
+Actions:
+    register --<span class="hljs-keyword">class</span>=<span class="hljs-keyword">value</span>
+    load --odfi_branch_id=<span class="hljs-keyword">value</span>
+    setPlugin --odfi_branch_id=<span class="hljs-keyword">value</span> --plugin=<span class="hljs-keyword">value</span>
+
+    updateTransferConfig --odfi_branch_id=<span class="hljs-keyword">value</span> --newConfig=<span class="hljs-keyword">value</span>
+    test --odfi_branch_id=<span class="hljs-keyword">value</span></code></pre>
+<p>###Register a Bank Plugin</p>
+<p>In order to use a plugin, it must first be registered. The plugin class files live under the application directory in protected/vendors/OpenACH/nacha/Banks/. Beginning with version 1.5, plugin classes include ManualConfig, USBankConfig, WellsFargoConfig, and SagePayConfig. OpenACH 1.5 and newer come with all these plugins pre-registered/enabled. If you have installed a newer plugin on an older code base, you will need to register it, as it won’t function until it has been registered. To enable OpenACH to use any plugin, simply run the following command, where CLASS_NAME is the full class name of the bank plugin:</p>
+<pre><code># ./openach bankPlugin <span class="hljs-keyword">register</span> --<span class="hljs-keyword">class</span>=CLASS_NAME</code></pre>
+<p>###Assign and Configure the Bank Plugin</p>
+<p>Use the bankPlugin setPlugin command to assign the Odfi Branch (Settlement Account) a bank plugin to use for processing. Unlike the register command, you will refer to the plugin by its ID rather than the class name of the bank plugin class. For instance, “SagePay”, “USBank”, “WellsFargo” or “Manual” (leaving off the “Config” from the class name). The setPlugin command will return a set of JSON formatted parameters. If this is your first time using this plugin for your Odfi Branch, the values will be the plugin defaults, otherwise they will be values from the last time you used the plugin.</p>
+<pre><code># ./openach <span class="hljs-keyword">bankPlugin </span>setPlugin --odfi_branch_id<span class="hljs-label">=d38457a9</span>-<span class="hljs-keyword">beff-4070-afc0-501c5b856f89 </span>--plugin<span class="hljs-label">=SagePay</span>
+<span class="hljs-label">Using</span> <span class="hljs-keyword">Bank </span>Plugin: SagePay
+<span class="hljs-label">Transfer</span> Configuration:
+{<span class="hljs-string">"prod_host"</span>:<span class="hljs-string">"ftp.eftchecks.com"</span>,<span class="hljs-string">"prod_port"</span>:<span class="hljs-string">"22"</span>,<span class="hljs-string">"test_host"</span>:<span class="hljs-string">"ftp.eftchecks.com"</span>,<span class="hljs-string">"test_port"</span>:<span class="hljs-string">"22"</span>,<span class="hljs-string">"user"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"password"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"key"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"outbound_path"</span>:<span class="hljs-string">"Incoming\/"</span>,<span class="hljs-string">"outbound_file"</span>:<span class="hljs-string">"{{id}}"</span>,<span class="hljs-string">"confirm_path"</span>:<span class="hljs-string">"Outgoing\/"</span>,<span class="hljs-string">"confirm_file"</span>:<span class="hljs-string">"*_File_Summary_*.csv"</span>,<span class="hljs-string">"return_path"</span>:<span class="hljs-string">"Outgoing\/"</span>,<span class="hljs-string">"return_file"</span>:<span class="hljs-string">"*_Merchant_Change_Report_*.csv"</span>}
+
+<span class="hljs-label">Record</span> Configuration:
+<span class="hljs-label">null</span></code></pre>
+<p>Next, update the plugin config specific to your situation. Most of the plugins require user and password to be updated in order to properly transfer files to the processor. Use JSON formatted parameter list with the bankPlugin updateTransferConfig command to specify the parameters you want to update.</p>
+<pre><code><span class="hljs-preprocessor"># ./openach bankPlugin updateTransferConfig --odfi_branch_id=d38457a9-beff-4070-afc0-501c5b856f89 --newConfig='{<span class="hljs-title">"user"</span>:<span class="hljs-title">"testuser"</span>,<span class="hljs-title">"password"</span>:<span class="hljs-title">"testpassword"</span>}'</span></code></pre>
+<p>You can easily verify your changes took effect using the bankPlugin view command:</p>
+<pre><code># ./openach <span class="hljs-keyword">bankPlugin </span>view --odfi_branch_id<span class="hljs-label">=d38457a9</span>-<span class="hljs-keyword">beff-4070-afc0-501c5b856f89
+</span><span class="hljs-label">Using</span> <span class="hljs-keyword">Bank </span>Plugin: SagePay
+<span class="hljs-label">Transfer</span> Configuration:
+{<span class="hljs-string">"prod_host"</span>:<span class="hljs-string">"ftp.eftchecks.com"</span>,<span class="hljs-string">"prod_port"</span>:<span class="hljs-string">"22"</span>,<span class="hljs-string">"test_host"</span>:<span class="hljs-string">"ftp.eftchecks.com"</span>,<span class="hljs-string">"test_port"</span>:<span class="hljs-string">"22"</span>,<span class="hljs-string">"user"</span>:<span class="hljs-string">"testuser"</span>,<span class="hljs-string">"password"</span>:<span class="hljs-string">"testpassword"</span>,<span class="hljs-string">"key"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"outbound_path"</span>:<span class="hljs-string">"Incoming\/"</span>,<span class="hljs-string">"outbound_file"</span>:<span class="hljs-string">"{{id}}"</span>,<span class="hljs-string">"confirm_path"</span>:<span class="hljs-string">"Outgoing\/"</span>,<span class="hljs-string">"confirm_file"</span>:<span class="hljs-string">"*_File_Summary_*.csv"</span>,<span class="hljs-string">"return_path"</span>:<span class="hljs-string">"Outgoing\/"</span>,<span class="hljs-string">"return_file"</span>:<span class="hljs-string">"*_Merchant_Change_Report_*.csv"</span>}
+
+<span class="hljs-label">Record</span> Configuration:
+<span class="hljs-label">null</span></code></pre>
+<p>If your ACH processor requires you to override specific fields, and assuming you have an OpenACH install that calls the odfiBranch-&gt;getBankConfig()-&gt;beforeRecordSave( $record ) hook during file building (e.g. newer versions of the AltBatchBuilderCommand, or custom code), you can configure these overrides using the bankPlugin updateRecordConfig command. The beforeRecordSave() method will load the record config, look for a matching class name, and set the specified fields to the given values. Assuming the hooks are in place, the following would set the header discretionary data field on the PPD batch record, and the immediate origin name on the file record.</p>
+<pre><code><span class="hljs-preprocessor"># ./openach bankPlugin updateRecordConfig --odfi_branch_id=d38457a9-beff-4070-afc0-501c5b856f89 --newConfig='{<span class="hljs-title">"AchBatchPPD"</span>:{<span class="hljs-title">"ach_batch_header_discretionary_data"</span>:1234567},<span class="hljs-title">"AchFile"</span>:{<span class="hljs-title">"ach_file_header_immediate_origin_name"</span>:<span class="hljs-title">"WELLS FARGO"</span>}}'</span></code></pre>
+<p>You can verify your changes took effect using the bankPlugin view command.</p>
+<p>###Where to Go From Here</p>
+<p>At this point, you have an origination account set up and ready to add payment profiles and payment schedules. You can log into OpenACH by pointing your browser at the server where you have it installed (<a href="http://localhost/">http://localhost/</a> for instance). Note the web interface is mainly for reference. Most everything you will be doing with OpenACH will be accomplished by integrating using the OpenACH API.</p>
+<p>###Integrating with OpenACH</p>
+<p>If you have other systems that you want to use with OpenACH, adding payment processing to existing or new applications, integration with a website, etc., you will want to set up an API user for the origination account that you created above. NOTE: The UUIDs used below should be replaced with the ones you saw when setting up your user in the steps above.</p>
+<pre><code><span class="hljs-preprocessor"># ./openach apiuser create --user_id=ced64f44-<span class="hljs-number">1959</span>-<span class="hljs-number">443</span>d-a38f-<span class="hljs-number">0178f</span>650050d --originator_info_id=c38b6230-f8c9-<span class="hljs-number">45</span>dc-<span class="hljs-number">9</span>a86-<span class="hljs-number">5</span>a32bc8d60d8</span>
+Creating <span class="hljs-keyword">new</span> API User...
+API User: 
+    User ID:        ced64f44-<span class="hljs-number">1959</span>-<span class="hljs-number">443</span>d-a38f-<span class="hljs-number">0178f</span>650050d
+    Originator Info ID:    c38b6230-f8c9-<span class="hljs-number">45</span>dc-<span class="hljs-number">9</span>a86-<span class="hljs-number">5</span>a32bc8d60d8
+    Api Token:        veMnAoCAaPJr9NUmJ9KkD2Oz5hO3rY70A1VSnc1mBq2
+    Api Key:        eTqgmbqukjEs13V942heirDxmWbKNnJgAcocvJ4wCGN
+    Status:            enabled</code></pre>
+<p>For more information on integrating with the OpenACH API, please refer to the Integrating with OpenACH guide (<a href="https://openach.com/books/integrating-openach/integrating-openach">https://openach.com/books/integrating-openach/integrating-openach</a>).</p>
+</div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 19 Apr 2017</p><script>/* eslint-env browser */
+/* eslint quotes: [2, "single"] */
+'use strict';
+
+/*
+  Determine if a string ends with another string.
+*/
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+/*
+  Get a list of direct child elements by class name.
+*/
+function childrenByClass(element, name) {
+  var filtered = [];
+
+  for (var i = 0; i < element.children.length; i++) {
+    var child = element.children[i];
+    var classNames = child.className.split(' ');
+    if (classNames.indexOf(name) !== -1) {
+      filtered.push(child);
+    }
+  }
+
+  return filtered;
+}
+
+/*
+  Get an array [width, height] of the window.
+*/
+function getWindowDimensions() {
+  var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.body,
+      x = w.innerWidth || e.clientWidth || g.clientWidth,
+      y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+  return [x, y];
+}
+
+/*
+  Collapse or show a request/response example.
+*/
+function toggleCollapseButton(event) {
+    var button = event.target.parentNode;
+    var content = button.parentNode.nextSibling;
+    var inner = content.children[0];
+
+    if (button.className.indexOf('collapse-button') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        // Currently showing, so let's hide it
+        button.className = 'collapse-button';
+        content.style.maxHeight = '0px';
+    } else {
+        // Currently hidden, so let's show it
+        button.className = 'collapse-button show';
+        content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+function toggleTabButton(event) {
+    var i, index;
+    var button = event.target;
+
+    // Get index of the current button.
+    var buttons = childrenByClass(button.parentNode, 'tab-button');
+    for (i = 0; i < buttons.length; i++) {
+        if (buttons[i] === button) {
+            index = i;
+            button.className = 'tab-button active';
+        } else {
+            buttons[i].className = 'tab-button';
+        }
+    }
+
+    // Hide other tabs and show this one.
+    var tabs = childrenByClass(button.parentNode.parentNode, 'tab');
+    for (i = 0; i < tabs.length; i++) {
+        if (i === index) {
+            tabs[i].style.display = 'block';
+        } else {
+            tabs[i].style.display = 'none';
+        }
+    }
+}
+
+/*
+  Collapse or show a navigation menu. It will not be hidden unless it
+  is currently selected or `force` has been passed.
+*/
+function toggleCollapseNav(event, force) {
+    var heading = event.target.parentNode;
+    var content = heading.nextSibling;
+    var inner = content.children[0];
+
+    if (heading.className.indexOf('heading') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+      // Currently showing, so let's hide it, but only if this nav item
+      // is already selected. This prevents newly selected items from
+      // collapsing in an annoying fashion.
+      if (force || window.location.hash && endsWith(event.target.href, window.location.hash)) {
+        content.style.maxHeight = '0px';
+      }
+    } else {
+      // Currently hidden, so let's show it
+      content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+/*
+  Refresh the page after a live update from the server. This only
+  works in live preview mode (using the `--server` parameter).
+*/
+function refresh(body) {
+    document.querySelector('body').className = 'preload';
+    document.body.innerHTML = body;
+
+    // Re-initialize the page
+    init();
+    autoCollapse();
+
+    document.querySelector('body').className = '';
+}
+
+/*
+  Determine which navigation items should be auto-collapsed to show as many
+  as possible on the screen, based on the current window height. This also
+  collapses them.
+*/
+function autoCollapse() {
+  var windowHeight = getWindowDimensions()[1];
+  var itemsHeight = 64; /* Account for some padding */
+  var itemsArray = Array.prototype.slice.call(
+    document.querySelectorAll('nav .resource-group .heading'));
+
+  // Get the total height of the navigation items
+  itemsArray.forEach(function (item) {
+    itemsHeight += item.parentNode.offsetHeight;
+  });
+
+  // Should we auto-collapse any nav items? Try to find the smallest item
+  // that can be collapsed to show all items on the screen. If not possible,
+  // then collapse the largest item and do it again. First, sort the items
+  // by height from smallest to largest.
+  var sortedItems = itemsArray.sort(function (a, b) {
+    return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
+  });
+
+  while (sortedItems.length && itemsHeight > windowHeight) {
+    for (var i = 0; i < sortedItems.length; i++) {
+      // Will collapsing this item help?
+      var itemHeight = sortedItems[i].nextSibling.offsetHeight;
+      if ((itemsHeight - itemHeight <= windowHeight) || i === sortedItems.length - 1) {
+        // It will, so let's collapse it, remove its content height from
+        // our total and then remove it from our list of candidates
+        // that can be collapsed.
+        itemsHeight -= itemHeight;
+        toggleCollapseNav({target: sortedItems[i].children[0]}, true);
+        sortedItems.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
+
+/*
+  Initialize the interactive functionality of the page.
+*/
+function init() {
+    var i, j;
+
+    // Make collapse buttons clickable
+    var buttons = document.querySelectorAll('.collapse-button');
+    for (i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = toggleCollapseButton;
+
+        // Show by default? Then toggle now.
+        if (buttons[i].className.indexOf('show') !== -1) {
+            toggleCollapseButton({target: buttons[i].children[0]});
+        }
+    }
+
+    var responseCodes = document.querySelectorAll('.example-names');
+    for (i = 0; i < responseCodes.length; i++) {
+        var tabButtons = childrenByClass(responseCodes[i], 'tab-button');
+        for (j = 0; j < tabButtons.length; j++) {
+            tabButtons[j].onclick = toggleTabButton;
+
+            // Show by default?
+            if (j === 0) {
+                toggleTabButton({target: tabButtons[j]});
+            }
+        }
+    }
+
+    // Make nav items clickable to collapse/expand their content.
+    var navItems = document.querySelectorAll('nav .resource-group .heading');
+    for (i = 0; i < navItems.length; i++) {
+        navItems[i].onclick = toggleCollapseNav;
+
+        // Show all by default
+        toggleCollapseNav({target: navItems[i].children[0]});
+    }
+}
+
+// Initial call to set up buttons
+init();
+
+window.onload = function () {
+    autoCollapse();
+    // Remove the `preload` class to enable animations
+    document.querySelector('body').className = '';
+};
+</script></body></html>
