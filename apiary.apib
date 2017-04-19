@@ -1,0 +1,669 @@
+FORMAT: 1A
+HOST: https://openach.yourdomain.com/api/
+
+# OpenACH API
+
+OpenACH is an open-source ACH origination platform.  A powerful feature of OpenACH is 
+that it can easily be integrated with other systems - both as a payment gateway for 
+e-commerce, billing systems, etc., and as a source of data for customer portals, 
+accounting systems, CRM systems, and more. All of this is accomplished through a simple 
+and secure REST/JSON API which can be used independently or through the OpenACH PHP SDK.
+
+## Group Payment Profiles
+
+Each payment profile represents a customer, and includes first and last name, email 
+address, password, security questions/answers and status. A payment profile can have 
+multiple external accounts (e.g. bank accounts) and payment schedules.
+
+### Retrieve a Payment Profile [GET /getPaymentProfile{?payment_profile_id}]
+
++ Attributes (PaymentProfile)
+
++ Parameters
+
+    + payment_profile_id: `5a47698e-38c9-405e-99cd-8429599b1b23` (required,string) The internal ID (UUID) of the payment profile
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+              "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
+              "payment_profile_external_id": "customer-15141",
+              "payment_profile_password": "supersecret",
+              "payment_profile_first_name": "Henry",
+              "payment_profile_first_name": "Smith",
+              "payment_profile_email_address": "henry.smith@example.com",
+              "payment_profile_security_question_1": "What is your name?",
+              "payment_profile_security_question_2": "What is your quest?",
+              "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
+              "payment_profile_security_answer_1": "Arthur, King of the Britons",
+              "payment_profile_security_answer_2": "To seek the Holy Grail",
+              "payment_profile_security_answer_3": "African or European swallow?",
+              "payment_profile_status": "enabled"
+            }
+
+### Retrieve a Payment Profile by External ID [GET /api/getPaymentProfileByExtId{?payment_profile_external_id}]
+
++ Parameters
+
+    + payment_profile_external_id: `customer-15141` (required,string) - External ID (public, e.g. for external reference) 
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+              "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
+              "payment_profile_external_id": "customer-15141",
+              "payment_profile_password": "supersecret",
+              "payment_profile_first_name": "Henry",
+              "payment_profile_first_name": "Smith",
+              "payment_profile_email_address": "henry.smith@example.com",
+              "payment_profile_security_question_1": "What is your name?",
+              "payment_profile_security_question_2": "What is your quest?",
+              "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
+              "payment_profile_security_answer_1": "Arthur, King of the Britons",
+              "payment_profile_security_answer_2": "To seek the Holy Grail",
+              "payment_profile_security_answer_3": "African or European swallow?",
+              "payment_profile_status": "enabled"
+            }
+
+
+### Create a Payment Profile [POST /api/savePaymentProfile]
+
++ Attributes (PaymentProfile)
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+            {
+              "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
+              "payment_profile_external_id": "customer-15141",
+              "payment_profile_password": "supersecret",
+              "payment_profile_first_name": "Henry",
+              "payment_profile_first_name": "Smith",
+              "payment_profile_email_address": "henry.smith@example.com",
+              "payment_profile_security_question_1": "What is your name?",
+              "payment_profile_security_question_2": "What is your quest?",
+              "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
+              "payment_profile_security_answer_1": "Arthur, King of the Britons",
+              "payment_profile_security_answer_2": "To seek the Holy Grail",
+              "payment_profile_security_answer_3": "African or European swallow?",
+              "payment_profile_status": "enabled"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+              "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
+              "payment_profile_external_id": "customer-15141",
+              "payment_profile_password": "supersecret",
+              "payment_profile_first_name": "Henry",
+              "payment_profile_first_name": "Smith",
+              "payment_profile_email_address": "henry.smith@example.com",
+              "payment_profile_security_question_1": "What is your name?",
+              "payment_profile_security_question_2": "What is your quest?",
+              "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
+              "payment_profile_security_answer_1": "Arthur, King of the Britons",
+              "payment_profile_security_answer_2": "To seek the Holy Grail",
+              "payment_profile_security_answer_3": "African or European swallow?",
+              "payment_profile_status": "enabled"
+            }
+
+### Update a Payment Profile [POST /api/savePaymentProfile{?payment_profile_id}]
+
++ Attributes (PaymentProfile)
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+            {
+              "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+              "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
+              "payment_profile_external_id": "customer-15141",
+              "payment_profile_password": "supersecret",
+              "payment_profile_first_name": "Henry",
+              "payment_profile_first_name": "Smith",
+              "payment_profile_email_address": "henry.smith@example.com",
+              "payment_profile_security_question_1": "What is your name?",
+              "payment_profile_security_question_2": "What is your quest?",
+              "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
+              "payment_profile_security_answer_1": "Arthur, King of the Britons",
+              "payment_profile_security_answer_2": "To seek the Holy Grail",
+              "payment_profile_security_answer_3": "African or European swallow?",
+              "payment_profile_status": "enabled"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+              "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
+              "payment_profile_external_id": "customer-15141",
+              "payment_profile_password": "supersecret",
+              "payment_profile_first_name": "Henry",
+              "payment_profile_first_name": "Smith",
+              "payment_profile_email_address": "henry.smith@example.com",
+              "payment_profile_security_question_1": "What is your name?",
+              "payment_profile_security_question_2": "What is your quest?",
+              "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
+              "payment_profile_security_answer_1": "Arthur, King of the Britons",
+              "payment_profile_security_answer_2": "To seek the Holy Grail",
+              "payment_profile_security_answer_3": "African or European swallow?",
+              "payment_profile_status": "enabled"
+            }
+
+
+
+## Group External Accounts
+
+External accounts are simply customer bank accounts. It may seem odd at first to refer to them as "external accounts" instead of "bank accounts", but understand that OpenACH deals with all sorts of different bank accounts. These particular bank accounts are external in the fact that they belong to people other than the originator, and more than likely reside at other banks than the originator's bank account(s). We chose not to rename them simply for the API in order to avoid confusion for developers who work with both internal and SDK aspects of OpenACH. When you are using the API, just remember that "external account" simply means "bank account".
+
+Any given payment profile may have multiple external accounts, and a single external account may be associated with many payment schedules. External accounts are defined by bank name, bank country, routing/SWIFT number, account number, account holder name, account type, and a billing address (required only for international transactions).
+
+### Retrieve an External Account [GET /getExternalAccount{?external_account_id}]
+
++ Parameters
+
+    + external_account_id: `085ecf6f-3298-42e0-bbe5-196ca186b0d2` (required,string) The internal ID (UUID) of the payment profile
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "external_account_id": "085ecf6f-3298-42e0-bbe5-196ca186b0d2",
+              "external_account_payment_profile_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "external_account_type": "checking",
+              "external_account_name": "My Checking Account",
+              "external_account_bank": "US Bank",
+              "external_account_holder": "Henry Smith",
+              "external_account_country_code": "US",
+              "external_account_dfi_id": 101000187,
+              "external_account_number": "123456790",
+              "external_account_billing_address": "123 Easy Street",
+              "external_account_billing_city": "Anytown",
+              "external_account_billing_state_province": "NY",
+              "external_account_billing_postal_code": "12345",
+              "external_account_business": true,
+              "external_account_status": "enabled"
+            }
+
+### Create an External Account [POST /api/saveExternalAccount]
+
++ Attributes (ExternalAccountCreate)
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+            {
+              "external_account_payment_profile_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "external_account_type": "checking",
+              "external_account_name": "My Checking Account",
+              "external_account_bank": "US Bank",
+              "external_account_holder": "Henry Smith",
+              "external_account_country_code": "US",
+              "external_account_dfi_id": 101000187,
+              "external_account_number": "123456790",
+              "external_account_billing_address": "123 Easy Street",
+              "external_account_billing_city": "Anytown",
+              "external_account_billing_state_province": "NY",
+              "external_account_billing_postal_code": "12345",
+              "external_account_business": true,
+              "external_account_status": "enabled"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "external_account_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+              "external_account_payment_profile_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "external_account_type": "checking",
+              "external_account_name": "My Checking Account",
+              "external_account_bank": "US Bank",
+              "external_account_holder": "Henry Smith",
+              "external_account_country_code": "US",
+              "external_account_dfi_id": 101000187,
+              "external_account_number": "123456790",
+              "external_account_billing_address": "123 Easy Street",
+              "external_account_billing_city": "Anytown",
+              "external_account_billing_state_province": "NY",
+              "external_account_billing_postal_code": "12345",
+              "external_account_business": true,
+              "external_account_status": "enabled"
+            }
+
+
+
+### Update an External Account [POST /api/saveExternalAccount{?external_account_id}]
+
++ Attributes (ExternalAccount)
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+            {
+              "external_account_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+              "external_account_payment_profile_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "external_account_type": "checking",
+              "external_account_name": "My Checking Account",
+              "external_account_bank": "US Bank",
+              "external_account_holder": "Henry Smith",
+              "external_account_country_code": "US",
+              "external_account_dfi_id": 101000187,
+              "external_account_number": "123456790",
+              "external_account_billing_address": "123 Easy Street",
+              "external_account_billing_city": "Anytown",
+              "external_account_billing_state_province": "NY",
+              "external_account_billing_postal_code": "12345",
+              "external_account_business": true,
+              "external_account_status": "enabled"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "external_account_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+              "external_account_payment_profile_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "external_account_type": "checking",
+              "external_account_name": "My Checking Account",
+              "external_account_bank": "US Bank",
+              "external_account_holder": "Henry Smith",
+              "external_account_country_code": "US",
+              "external_account_dfi_id": 101000187,
+              "external_account_number": "123456790",
+              "external_account_billing_address": "123 Easy Street",
+              "external_account_billing_city": "Anytown",
+              "external_account_billing_state_province": "NY",
+              "external_account_billing_postal_code": "12345",
+              "external_account_business": true,
+              "external_account_status": "enabled"
+            }
+
+
+## Group Payment Schedules
+
+At the heart of OpenACH are payment schedules. Each individual payment schedule is associated with a single external account which is used to process the payment(s). Payment schedules can be created as one-time payments, or recurring payments with intervals of daily, weekly, biweekly, monthly, bimonthly, biannually, annually, or biennially. Each payment schedule is assigned an amount, payment type, currency code, next date, frequency, an end date, and status. OpenACH automatically calculates the remaining occurrences for each payment schedule based on this information. Each payment schedule is linked to a payment type.
+
+### Retrieve a Payment Schedule [GET /getPaymentSchedule{?payment_schedule_id}]
+
++ Attributes (PaymentSchedule)
+
++ Parameters
+
+    + payment_schedule_id: `5a47698e-38c9-405e-99cd-8429599b1b23` (required,string) The internal ID (UUID) of the payment schedule
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_status": "enabled",
+              "payment_schedule_amount": 100.00,
+              "payment_schedule_currency_code": "USD",
+              "payment_schedule_next_date": "2017-03-01",
+              "payment_schedule_frequency": "once",
+              "payment_schedule_end_date": "2017-03-05",
+              "payment_schedule_remaining_occurrences": 10
+            }
+
+### Retrieve All Payment Schedules for a Payment Profile [GET /api/getPaymentSchedules{?payment_profile_id}]
+
++ Parameters
+
+    + payment_profile_id: `5a47698e-38c9-405e-99cd-8429599b1b23` (required,string) - The internal ID (UUID) of the payment profile
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+              {
+                "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
+                "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                "payment_schedule_status": "enabled",
+                "payment_schedule_amount": 100.00,
+                "payment_schedule_currency_code": "USD",
+                "payment_schedule_next_date": "2017-03-01",
+                "payment_schedule_frequency": "once",
+                "payment_schedule_end_date": "2017-03-05",
+                "payment_schedule_remaining_occurrences": 10
+              }
+            ]
+
+
+
+### Create a Payment Schedule [POST /api/savePaymentSchedule]
+
++ Attributes (PaymentScheduleCreate)
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+            {
+              "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_status": "enabled",
+              "payment_schedule_amount": 100.00,
+              "payment_schedule_currency_code": "USD",
+              "payment_schedule_next_date": "2017-03-01",
+              "payment_schedule_frequency": "once",
+              "payment_schedule_end_date": "2017-03-05",
+              "payment_schedule_remaining_occurrences": 10
+            }
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_status": "enabled",
+              "payment_schedule_amount": 100.00,
+              "payment_schedule_currency_code": "USD",
+              "payment_schedule_next_date": "2017-03-01",
+              "payment_schedule_frequency": "once",
+              "payment_schedule_end_date": "2017-03-05",
+              "payment_schedule_remaining_occurrences": 10
+            }
+
+
+### Update a Payment Schedule [POST /api/savePaymentSchedule{?payment_schedule_id}]
+
++ Attributes (PaymentSchedule)
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+            {
+              "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_status": "enabled",
+              "payment_schedule_amount": 100.00,
+              "payment_schedule_currency_code": "USD",
+              "payment_schedule_next_date": "2017-03-01",
+              "payment_schedule_frequency": "once",
+              "payment_schedule_end_date": "2017-03-05",
+              "payment_schedule_remaining_occurrences": 10
+            }
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
+              "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_schedule_status": "enabled",
+              "payment_schedule_amount": 100.00,
+              "payment_schedule_currency_code": "USD",
+              "payment_schedule_next_date": "2017-03-01",
+              "payment_schedule_frequency": "once",
+              "payment_schedule_end_date": "2017-03-05",
+              "payment_schedule_remaining_occurrences": 10
+            }
+
+
+## Group Payment Types
+
+To process payments, each origination account in OpenACH is configured with one or more payment types which define the transaction as either a credit (depositing funds INTO an external account), or a debit (withdrawing funds FROM an external account). They can only be modified from within the OpenACH web interface and are available through the API simply for reference when setting up new payment schedules.
+
+### Retrieve a Payment Type [GET /getPaymentType{?payment_type_id}]
+
++ Parameters
+
+    + payment_type_id: `7a3fc2ae-7bfb-41db-9d28-56b908d2ac65` (required,string) The internal ID (UUID) of the payment type
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+              "payment_type_originator_info_id": "e4339d8b-1e47-4f14-af3b-deb9105fcadc",
+              "payment_type_name": "Web Payment",
+              "payment_type_transaction_type": "debit",
+              "payment_type_status": "enabled",
+              "payment_type_description": "A bill payment from our website"
+            }
+
+### Retrieve All Payment Types [GET /api/getPaymentTypes]
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+              {
+                "payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                "payment_type_originator_info_id": "e4339d8b-1e47-4f14-af3b-deb9105fcadc",
+                "payment_type_name": "Web Payment",
+                "payment_type_transaction_type": "debit",
+                "payment_type_status": "enabled",
+                "payment_type_description": "A bill payment from our website"
+              },
+              {
+                "payment_type_id": "686f45b6-2be4-4dc0-8f87-88b4035ee565",
+                "payment_type_originator_info_id": "e4339d8b-1e47-4f14-af3b-deb9105fcadc",
+                "payment_type_name": "Refund",
+                "payment_type_transaction_type": "credit",
+                "payment_type_status": "enabled",
+                "payment_type_description": "For refunding of cancelled service."
+              }
+
+            ]
+
+# Data Structures
+
+## PaymentProfile
++ payment_profile_id: `5a47698e-38c9-405e-99cd-8429599b1b23` (required,string) - Internal ID (UUID) of the payment profile 
++ payment_profile_originator_info_id: `5ca86942-1af9-4abb-a9c3-a4bb837c73b5` (string) - ID (UUID) of the originator info record that owns the payment profile.  Note that this will always be the same as the originator info ID of the currently authenticated API key.
++ payment_profile_external_id: customer-15141 (string) - External ID (public, e.g. for external reference) 
++ payment_profile_password: supersecret (string) - Password for the payment profile.  Note that the contents of this field, while internally encrypted, are always returned as decrypted.  It is recommended to use this field to store a hashed version of the passwords, to which hash comparisons could be made. 
++ payment_profile_first_name: Henry (string) - First name
++ payment_profile_last_name: Smith (string) - Last name
++ payment_profile_email_address: henry.smith@example.com (string) - Email address
++ payment_profile_security_question_1: What is your name? (string) - Security question 1
++ payment_profile_security_question_2: What is your quest? (string) - Security question 2
++ payment_profile_security_question_3: What is the airspeed velocity of an unladen swallow? (string) - Security question 3
++ payment_profile_security_answer_1: Arthur, King of the Britons (string) - Answer to security question 1
++ payment_profile_security_answer_2: To seek the Holy Grail (string) - Answer to security question 2
++ payment_profile_security_answer_3: African or European swallow? (string) - Answer to security question 3
++ payment_profile_status: enabled (string) - The status of the payment profile (e.g. 'enabled' or 'suspended').  Note that suspending a payment profile prevents processing of any owned payment schedules. 
+
+## PaymentProfileCreate
++ payment_profile_originator_info_id: `5ca86942-1af9-4abb-a9c3-a4bb837c73b5` (string) - ID (UUID) of the originator info record that owns the payment profile.  Note that this will always be the same as the originator info ID of the currently authenticated API key.
++ payment_profile_external_id: customer-15141 (string) - External ID (public, e.g. for external reference) 
++ payment_profile_password: supersecret (string) - Password for the payment profile.  Note that the contents of this field, while internally encrypted, are always returned as decrypted.  It is recommended to use this field to store a hashed version of the passwords, to which hash comparisons could be made. 
++ payment_profile_first_name: Henry (string) - First name
++ payment_profile_last_name: Smith (string) - Last name
++ payment_profile_email_address: henry.smith@example.com (string) - Email address
++ payment_profile_security_question_1: What is your name? (string) - Security question 1
++ payment_profile_security_question_2: What is your quest? (string) - Security question 2
++ payment_profile_security_question_3: What is the airspeed velocity of an unladen swallow? (string) - Security question 3
++ payment_profile_security_answer_1: Arthur, King of the Britons (string) - Answer to security question 1
++ payment_profile_security_answer_2: To seek the Holy Grail (string) - Answer to security question 2
++ payment_profile_security_answer_3: African or European swallow? (string) - Answer to security question 3
++ payment_profile_status: enabled (string) - The status of the payment profile (e.g. 'enabled' or 'suspended').  Note that suspending a payment profile prevents processing of any owned payment schedules. 
+
+## ExternalAccount
++ external_account_id: `7382b7eb-93df-46da-bf08-5a9cfb4e084f` (required,string) - Internal ID (UUID)
++ external_account_datetime: `2017-03-01 01:02:03` (string) - Date/time that the external account was created
++ external_account_payment_profile_id: `87798775-bc35-46d1-81ef-0beacab16131` (string) - ID (UUID) of the payment profile that owns this external account
++ external_account_type: checking (string) - Bank account type, either 'checking' or 'savings'
++ external_account_name: `My Checking Account` (string) - User-friendly name
++ external_account_bank: `Wells Fargo` (string) - Name of bank where account is held (typically auto-generated based on routing number)
++ external_account_holder: `Robert Smith` (string) - Account holder name
++ external_account_country_code: US (string) - ISO country code
++ external_account_dfi_id: `10100695` (string) - Routing number
++ external_account_number: `123456790` (string) - Account number
++ external_account_billing_address: `123 Easy Street` (string) - Billing address, used for IAT
++ external_account_billing_city: `Anytown` (string) - Billing city, used for IAT
++ external_account_billing_state_province: `NY` (string) - Billing state/province, used for IAT
++ external_account_billing_postal_code: `12345` (string) - Billing postal code, used for IAT
++ external_account_billing_country: `US` (string) - Billing country, used for IAT
++ external_account_business: true (boolean) - Business account
++ external_account_verification_status: `completed` (string) - Verification status, determined and specified by external process flow (not managed by OpenACH).  One of: 'pending', + 'attempted', 'completed', 'failed'
++ external_account_status: enabled (string) - Account status, may be automatically changed by return/change notifications from bank.  One of: 'enabled', 'frozen', 'closed'
+
+## ExternalAccountCreate
++ external_account_datetime: `2017-03-01 01:02:03` (string) - Date/time that the external account was created
++ external_account_payment_profile_id: `87798775-bc35-46d1-81ef-0beacab16131` (string) - ID (UUID) of the payment profile that owns this external account
++ external_account_type: checking (string) - Bank account type, either 'checking' or 'savings'
++ external_account_name: `My Checking Account` (string) - User-friendly name
++ external_account_bank: `Wells Fargo` (string) - Name of bank where account is held (typically auto-generated based on routing number)
++ external_account_holder: `Robert Smith` (string) - Account holder name
++ external_account_country_code: US (string) - ISO country code
++ external_account_dfi_id: `10100695` (string) - Routing number
++ external_account_number: `123456790` (string) - Account number
++ external_account_billing_address: `123 Easy Street` (string) - Billing address, used for IAT
++ external_account_billing_city: `Anytown` (string) - Billing city, used for IAT
++ external_account_billing_state_province: `NY` (string) - Billing state/province, used for IAT
++ external_account_billing_postal_code: `12345` (string) - Billing postal code, used for IAT
++ external_account_billing_country: `US` (string) - Billing country, used for IAT
++ external_account_business: true (boolean) - Business account
++ external_account_verification_status: `completed` (string) - Verification status, determined and specified by external process flow (not managed by OpenACH).  One of: 'pending', + 'attempted', 'completed', 'failed'
++ external_account_status: enabled (string) - Account status, may be automatically changed by return/change notifications from bank.  One of: 'enabled', 'frozen', 'closed'
+
+
+## PaymentSchedule
++ payment_schedule_id: `7a3fc2ae-7bfb-41db-9d28-56b908d2ac65` (required,string) - Internal ID (UUID)
++ payment_schedule_external_account_id: `87798775-bc35-46d1-81ef-0beacab16131` (string) - ID (UUID) of the external account record on which to process the transaction
++ payment_schedule_payment_type_id: `` (string) - ID (UUID) of the payment type of this transaction
++ payment_schedule_status: `` (string) - Status of the payment schedule.  One of: _enabled_, _suspended_
++ payment_schedule_amount: `100.00` (number) - Amount of the transaction (in USD)
++ payment_schedule_currency_code: `USD` (string) - ISO currency code of the transaction (defaults to USD).  This should always be USD unless you are specifically transacting from a non-USD bank account to another non-USD bank account via IAT.
++ payment_schedule_next_date: `2017-03-01` (string) - The next scheduled date for a transaction to be processed
++ payment_schedule_frequency: `once` (string) - The frequency of the payment schedule.  One of: _once_, _daily_, _weekly_, _biweekly_, _monthly_, _bimonthly_, _biannually_, _annually_, _biennially_. Defaults to _once_.
++ payment_schedule_end_date: `2017-03-05` (string) - The end date for the payment schedule.  Note that this should extend past the final transaction date, unless the freqency is _daily_
++ payment_schedule_remaining_occurrences: `10` (number) - The number of occurrences remaining for this payment schedule.  Note that this is calculated internally by OpenACH whenever a payment schedule is saved.
+
+
+## PaymentScheduleCreate
++ payment_schedule_external_account_id: `` (string) - ID (UUID) of the external account record on which to process the transaction
++ payment_schedule_payment_type_id: `87798775-bc35-46d1-81ef-0beacab16131` (string) - ID (UUID) of the payment type of this transaction
++ payment_schedule_status: `` (string) - Status of the payment schedule.  One of: _enabled_, _suspended_
++ payment_schedule_amount: `100.00` (number) - Amount of the transaction (in USD)
++ payment_schedule_currency_code: `USD` (string) - ISO currency code of the transaction (defaults to USD).  This should always be USD unless you are specifically transacting from a non-USD bank account to another non-USD bank account via IAT.
++ payment_schedule_next_date: `2017-03-01` (string) - The next scheduled date for a transaction to be processed
++ payment_schedule_frequency: `once` (string) - The frequency of the payment schedule.  One of: _once_, _daily_, _weekly_, _biweekly_, _monthly_, _bimonthly_, _biannually_, _annually_, _biennially_. Defaults to _once_.
++ payment_schedule_end_date: `2017-03-05` (string) - The end date for the payment schedule.  Note that this should extend past the final transaction date, unless the freqency is _daily_
++ payment_schedule_remaining_occurrences: `10` (number) - The number of occurrences remaining for this payment schedule.  Note that this is calculated internally by OpenACH whenever a payment schedule is saved.
+
+
+## PaymentType
++ payment_type_id: `7a3fc2ae-7bfb-41db-9d28-56b908d2ac65` (string) - The ID (UUID) of the payment type
++ payment_type_originator_info_id: `e4339d8b-1e47-4f14-af3b-deb9105fcadc` (string) - The originator info ID (UUID) of the origination account to which this payment type belongs
++ payment_type_name: `Web Payment` (string) - A user-friendly name of the payment type, which will show up on the customer's bank statement.
++ payment_type_transaction_type: `debit` (string) - The type of transaction that this payment type generates. One of: _credit_, _debit_.  A type of _debit_ will debit the payment profile's bank account, and credit the originator's account, e.g. move funds FROM the payment profile's account TO the originator.  A type of _credit_ will credit the payment profile's bank account, and debit the originator's account, e.g. move funds FROM the originator TO the payment profile's account.
++ payment_type_status: `enabled` (string) - The status of the payment type.  One of: _enabled_, _disabled_. In order for transactions to process, it must be set to _enabled_.
++ payment_type_description: `A bill payment from our website` (string) - A user-friendly description of the payment type
