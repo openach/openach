@@ -112,7 +112,7 @@ multiple external accounts (e.g. bank accounts) and payment schedules.
               "payment_profile_status": "enabled"
             }
 
-### Retrieve a Payment Profile by External ID [GET /api/getPaymentProfileByExtId{?payment_profile_external_id}]
+### Retrieve a Payment Profile by External ID [GET /getPaymentProfileByExtId{?payment_profile_external_id}]
 
 + Parameters
 
@@ -149,7 +149,7 @@ multiple external accounts (e.g. bank accounts) and payment schedules.
             }
 
 
-### Create a Payment Profile [POST /api/savePaymentProfile]
+### Create a Payment Profile [POST /savePaymentProfile]
 
 + Attributes (PaymentProfile)
 
@@ -199,7 +199,7 @@ multiple external accounts (e.g. bank accounts) and payment schedules.
               "payment_profile_status": "enabled"
             }
 
-### Update a Payment Profile [POST /api/savePaymentProfile{?payment_profile_id}]
+### Update a Payment Profile [POST /savePaymentProfile{?payment_profile_id}]
 
 + Attributes (PaymentProfile)
 
@@ -295,7 +295,7 @@ Any given payment profile may have multiple external accounts, and a single exte
               "external_account_status": "enabled"
             }
 
-### Create an External Account [POST /api/saveExternalAccount]
+### Create an External Account [POST /saveExternalAccount]
 
 + Attributes (ExternalAccountCreate)
 
@@ -349,7 +349,7 @@ Any given payment profile may have multiple external accounts, and a single exte
 
 
 
-### Update an External Account [POST /api/saveExternalAccount{?external_account_id}]
+### Update an External Account [POST /saveExternalAccount{?external_account_id}]
 
 + Attributes (ExternalAccount)
 
@@ -441,7 +441,7 @@ At the heart of OpenACH are payment schedules. Each individual payment schedule 
               "payment_schedule_remaining_occurrences": 10
             }
 
-### Retrieve All Payment Schedules for a Payment Profile [GET /api/getPaymentSchedules{?payment_profile_id}]
+### Retrieve All Payment Schedules for a Payment Profile [GET /getPaymentSchedules{?payment_profile_id}]
 
 + Parameters
 
@@ -477,7 +477,7 @@ At the heart of OpenACH are payment schedules. Each individual payment schedule 
 
 
 
-### Create a Payment Schedule [POST /api/savePaymentSchedule]
+### Create a Payment Schedule [POST /savePaymentSchedule]
 
 + Attributes (PaymentScheduleCreate)
 
@@ -522,7 +522,7 @@ At the heart of OpenACH are payment schedules. Each individual payment schedule 
             }
 
 
-### Update a Payment Schedule [POST /api/savePaymentSchedule{?payment_schedule_id}]
+### Update a Payment Schedule [POST /savePaymentSchedule{?payment_schedule_id}]
 
 + Attributes (PaymentSchedule)
 
@@ -599,7 +599,7 @@ To process payments, each origination account in OpenACH is configured with one 
               "payment_type_description": "A bill payment from our website"
             }
 
-### Retrieve All Payment Types [GET /api/getPaymentTypes]
+### Retrieve All Payment Types [GET /getPaymentTypes]
 
 + Request
 
