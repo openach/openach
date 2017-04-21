@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "title": "OpenACH API",
-        "version": "",
+        "version": "v1.7",
         "description": "OpenACH is an open-source ACH origination platform.  A powerful feature of OpenACH is \nthat it can easily be integrated with other systems - both as a payment gateway for \ne-commerce, billing systems, etc., and as a source of data for customer portals, \naccounting systems, CRM systems, and more. All of this is accomplished through a simple \nand secure REST/JSON API which can be used independently or through the OpenACH PHP SDK."
     },
     "host": "openach.yourdomain.com",
@@ -11,6 +11,71 @@
         "https"
     ],
     "paths": {
+        "/connect": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "success": true,
+                                "session_id": "2cngluuab2ljqpsi47j1cv08o5"
+                            }
+                        }
+                    }
+                },
+                "summary": "Connect",
+                "description": "",
+                "tags": [
+                    "Connect and Authenticate"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_api_token",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "user_api_key",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/disconnect": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "success": true,
+                                "session_id": "2cngluuab2ljqpsi47j1cv08o5"
+                            }
+                        }
+                    }
+                },
+                "summary": "Disconnect",
+                "description": "",
+                "tags": [
+                    "Connect and Authenticate"
+                ],
+                "parameters": [],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
         "/getPaymentProfile": {
             "get": {
                 "responses": {
@@ -62,7 +127,7 @@
                 ]
             }
         },
-        "/api/getPaymentProfileByExtId": {
+        "/getPaymentProfileByExtId": {
             "get": {
                 "responses": {
                     "200": {
@@ -106,7 +171,7 @@
                 ]
             }
         },
-        "/api/savePaymentProfile": {
+        "/savePaymentProfile": {
             "post": {
                 "responses": {
                     "200": {
@@ -196,7 +261,7 @@
                 ]
             }
         },
-        "/api/saveExternalAccount": {
+        "/saveExternalAccount": {
             "post": {
                 "responses": {
                     "200": {
@@ -290,7 +355,7 @@
                 ]
             }
         },
-        "/api/getPaymentSchedules": {
+        "/getPaymentSchedules": {
             "get": {
                 "responses": {
                     "200": {
@@ -333,7 +398,7 @@
                 ]
             }
         },
-        "/api/savePaymentSchedule": {
+        "/savePaymentSchedule": {
             "post": {
                 "responses": {
                     "200": {
@@ -411,7 +476,7 @@
                 ]
             }
         },
-        "/api/getPaymentTypes": {
+        "/getPaymentTypes": {
             "get": {
                 "responses": {
                     "200": {
@@ -452,6 +517,8 @@
         }
     },
     "definitions": {
+        "Connect": {},
+        "Disconnect": {},
         "Retrieve a Payment Profile": {},
         "Retrieve a Payment Profile by External ID": {},
         "Create a Payment Profile": {},
