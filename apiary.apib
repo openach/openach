@@ -9,6 +9,65 @@ e-commerce, billing systems, etc., and as a source of data for customer portals,
 accounting systems, CRM systems, and more. All of this is accomplished through a simple 
 and secure REST/JSON API which can be used independently or through the OpenACH PHP SDK.
 
+## Group Connect and Authenticate
+
+Authentication is performed using a session-based auth-token and key.  Each auth-token and key are configured to allow access to payment profiles, bank accounts and payment schedules belonging to a single origination account.
+
+A successful call to the _connect_ endpoint will return a _session_id_, as well as a header with this same value stored in the _PHPSESSID_ cookie.  **All subsequent requests need to pass this value in the _PHPSESSID_ cookie header.**  For example:
+
+```
+
+  Accept: application/json
+  Cookie: PHPSESSID=2cngluuab2ljqpsi47j1cv08o5
+
+```
+
+### Connect [GET /connect{?user_api_token,user_api_key}]
+
++ Parameters
+
+    + user_api_token: `1PAlI1zlRZX5ccSm5IzMKl0Q1AnPLyS8aKZoQqOgSKV` (required,string) The API token for the connection
+    + user_api_key: `NKxRnEflcKBlYC2358Ib9BuNfOUYJAs0ouBGZTzoo6e` (required,string) The API key for the connection
+    
++ Request
+
+    + Headers
+
+            Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "success": true,
+              "session_id": "2cngluuab2ljqpsi47j1cv08o5"
+            }
+
+### Disconnect [GET /disconnect]
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "success": true,
+              "session_id": "2cngluuab2ljqpsi47j1cv08o5"
+            }
+
+
 ## Group Payment Profiles
 
 Each payment profile represents a customer, and includes first and last name, email 
@@ -28,6 +87,7 @@ multiple external accounts (e.g. bank accounts) and payment schedules.
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -63,6 +123,7 @@ multiple external accounts (e.g. bank accounts) and payment schedules.
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -97,9 +158,10 @@ multiple external accounts (e.g. bank accounts) and payment schedules.
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
-
+    
             {
               "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
               "payment_profile_external_id": "customer-15141",
@@ -146,6 +208,7 @@ multiple external accounts (e.g. bank accounts) and payment schedules.
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -206,6 +269,7 @@ Any given payment profile may have multiple external accounts, and a single exte
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -240,6 +304,7 @@ Any given payment profile may have multiple external accounts, and a single exte
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -293,6 +358,7 @@ Any given payment profile may have multiple external accounts, and a single exte
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -354,6 +420,7 @@ At the heart of OpenACH are payment schedules. Each individual payment schedule 
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -385,6 +452,7 @@ At the heart of OpenACH are payment schedules. Each individual payment schedule 
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -418,6 +486,7 @@ At the heart of OpenACH are payment schedules. Each individual payment schedule 
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -462,6 +531,7 @@ At the heart of OpenACH are payment schedules. Each individual payment schedule 
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -512,6 +582,7 @@ To process payments, each origination account in OpenACH is configured with one 
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
@@ -535,6 +606,7 @@ To process payments, each origination account in OpenACH is configured with one 
     + Headers
 
             Accept: application/json
+            Cookie: PHPSESSID=_{your_session_id}_
 
     + Body
 
