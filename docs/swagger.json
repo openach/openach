@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "title": "OpenACH API",
-        "version": "v1.7",
+        "version": "1.7",
         "description": "OpenACH is an open-source ACH origination platform.  A powerful feature of OpenACH is \nthat it can easily be integrated with other systems - both as a payment gateway for \ne-commerce, billing systems, etc., and as a source of data for customer portals, \naccounting systems, CRM systems, and more. All of this is accomplished through a simple \nand secure REST/JSON API which can be used independently or through the OpenACH PHP SDK."
     },
     "host": "openach.yourdomain.com",
