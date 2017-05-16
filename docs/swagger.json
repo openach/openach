@@ -1,841 +1,841 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "OpenACH API",
-        "version": "1.7",
-        "description": "OpenACH is an open-source ACH origination platform.  A powerful feature of OpenACH is \nthat it can easily be integrated with other systems - both as a payment gateway for \ne-commerce, billing systems, etc., and as a source of data for customer portals, \naccounting systems, CRM systems, and more. All of this is accomplished through a simple \nand secure REST/JSON API which can be used independently or through the OpenACH PHP SDK."
+  "swagger": "2.0",
+  "info": {
+    "title": "OpenACH API",
+    "version": "1.7",
+    "description": "OpenACH is an open-source ACH origination platform.  A powerful feature of OpenACH is \nthat it can easily be integrated with other systems - both as a payment gateway for \ne-commerce, billing systems, etc., and as a source of data for customer portals, \naccounting systems, CRM systems, and more. All of this is accomplished through a simple \nand secure REST/JSON API which can be used independently or through the OpenACH PHP SDK."
+  },
+  "host": "openach.yourdomain.com",
+  "basePath": "/api/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/connect": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "success": true,
+                "session_id": "2cngluuab2ljqpsi47j1cv08o5"
+              }
+            }
+          }
+        },
+        "summary": "Connect",
+        "description": "Authentication is performed using a session-based auth-token and key.  Each auth-token and key are configured to allow access to payment profiles, bank accounts and payment schedules belonging to a single origination account.\nA successful call to the _connect_ endpoint will return a _session_id_, as well as a header with this same value stored in the _PHPSESSID_ cookie.  **All subsequent requests need to pass this value in the _PHPSESSID_ cookie header.**  For example:\n\n```\n\n  Accept: application/json\n\n  Cookie: PHPSESSID=2cngluuab2ljqpsi47j1cv08o5\n\n```\n",
+        "tags": [
+          "Connect and Authenticate"
+        ],
+        "parameters": [
+          {
+            "name": "user_api_token",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_api_key",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
     },
-    "host": "openach.yourdomain.com",
-    "basePath": "/api/",
-    "schemes": [
-        "https"
-    ],
-    "paths": {
-        "/connect": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "success": true,
-                                "session_id": "2cngluuab2ljqpsi47j1cv08o5"
-                            }
-                        }
-                    }
-                },
-                "summary": "Connect",
-                "description": "Authentication is performed using a session-based auth-token and key.  Each auth-token and key are configured to allow access to payment profiles, bank accounts and payment schedules belonging to a single origination account.\nA successful call to the _connect_ endpoint will return a _session_id_, as well as a header with this same value stored in the _PHPSESSID_ cookie.  **All subsequent requests need to pass this value in the _PHPSESSID_ cookie header.**  For example:\n\n```\n\n  Accept: application/json\n\n  Cookie: PHPSESSID=2cngluuab2ljqpsi47j1cv08o5\n\n```\n",
-                "tags": [
-                    "Connect and Authenticate"
-                ],
-                "parameters": [
-                    {
-                        "name": "user_api_token",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "user_api_key",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
+    "/disconnect": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "success": true,
+                "session_id": "2cngluuab2ljqpsi47j1cv08o5"
+              }
             }
+          }
         },
-        "/disconnect": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "success": true,
-                                "session_id": "2cngluuab2ljqpsi47j1cv08o5"
-                            }
-                        }
-                    }
-                },
-                "summary": "Disconnect",
-                "description": "",
-                "tags": [
-                    "Connect and Authenticate"
-                ],
-                "parameters": [],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/getPaymentProfile": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
-                                "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
-                                "payment_profile_external_id": "customer-15141",
-                                "payment_profile_password": "supersecret",
-                                "payment_profile_first_name": "Smith",
-                                "payment_profile_email_address": "henry.smith@example.com",
-                                "payment_profile_security_question_1": "What is your name?",
-                                "payment_profile_security_question_2": "What is your quest?",
-                                "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
-                                "payment_profile_security_answer_1": "Arthur, King of the Britons",
-                                "payment_profile_security_answer_2": "To seek the Holy Grail",
-                                "payment_profile_security_answer_3": "African or European swallow?",
-                                "payment_profile_status": "enabled"
-                            }
-                        }
-                    }
-                },
-                "summary": "Retrieve a Payment Profile",
-                "description": "",
-                "tags": [
-                    "Payment Profiles"
-                ],
-                "parameters": [
-                    {
-                        "name": "payment_profile_id",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/PaymentProfile"
-                        }
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/getPaymentProfileByExtId": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
-                                "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
-                                "payment_profile_external_id": "customer-15141",
-                                "payment_profile_password": "supersecret",
-                                "payment_profile_first_name": "Smith",
-                                "payment_profile_email_address": "henry.smith@example.com",
-                                "payment_profile_security_question_1": "What is your name?",
-                                "payment_profile_security_question_2": "What is your quest?",
-                                "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
-                                "payment_profile_security_answer_1": "Arthur, King of the Britons",
-                                "payment_profile_security_answer_2": "To seek the Holy Grail",
-                                "payment_profile_security_answer_3": "African or European swallow?",
-                                "payment_profile_status": "enabled"
-                            }
-                        }
-                    }
-                },
-                "summary": "Retrieve a Payment Profile by External ID",
-                "description": "",
-                "tags": [
-                    "Payment Profiles"
-                ],
-                "parameters": [
-                    {
-                        "name": "payment_profile_external_id",
-                        "in": "query",
-                        "description": "External ID (public, e.g. for external reference)",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/savePaymentProfile": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
-                                "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
-                                "payment_profile_external_id": "customer-15141",
-                                "payment_profile_password": "supersecret",
-                                "payment_profile_first_name": "Smith",
-                                "payment_profile_email_address": "henry.smith@example.com",
-                                "payment_profile_security_question_1": "What is your name?",
-                                "payment_profile_security_question_2": "What is your quest?",
-                                "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
-                                "payment_profile_security_answer_1": "Arthur, King of the Britons",
-                                "payment_profile_security_answer_2": "To seek the Holy Grail",
-                                "payment_profile_security_answer_3": "African or European swallow?",
-                                "payment_profile_status": "enabled"
-                            }
-                        }
-                    }
-                },
-                "summary": "Update a Payment Profile",
-                "description": "",
-                "tags": [
-                    "Payment Profiles"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/PaymentProfile"
-                        }
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/getExternalAccount": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "external_account_id": "085ecf6f-3298-42e0-bbe5-196ca186b0d2",
-                                "external_account_payment_profile_id": "87798775-bc35-46d1-81ef-0beacab16131",
-                                "external_account_type": "checking",
-                                "external_account_name": "My Checking Account",
-                                "external_account_bank": "US Bank",
-                                "external_account_holder": "Henry Smith",
-                                "external_account_country_code": "US",
-                                "external_account_dfi_id": 101000187,
-                                "external_account_number": "123456790",
-                                "external_account_billing_address": "123 Easy Street",
-                                "external_account_billing_city": "Anytown",
-                                "external_account_billing_state_province": "NY",
-                                "external_account_billing_postal_code": "12345",
-                                "external_account_business": true,
-                                "external_account_status": "enabled"
-                            }
-                        }
-                    }
-                },
-                "summary": "Retrieve an External Account",
-                "description": "",
-                "tags": [
-                    "External Accounts"
-                ],
-                "parameters": [
-                    {
-                        "name": "external_account_id",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/saveExternalAccount": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "external_account_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
-                                "external_account_payment_profile_id": "87798775-bc35-46d1-81ef-0beacab16131",
-                                "external_account_type": "checking",
-                                "external_account_name": "My Checking Account",
-                                "external_account_bank": "US Bank",
-                                "external_account_holder": "Henry Smith",
-                                "external_account_country_code": "US",
-                                "external_account_dfi_id": 101000187,
-                                "external_account_number": "123456790",
-                                "external_account_billing_address": "123 Easy Street",
-                                "external_account_billing_city": "Anytown",
-                                "external_account_billing_state_province": "NY",
-                                "external_account_billing_postal_code": "12345",
-                                "external_account_business": true,
-                                "external_account_status": "enabled"
-                            }
-                        }
-                    }
-                },
-                "summary": "Update an External Account",
-                "description": "",
-                "tags": [
-                    "External Accounts"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/ExternalAccount"
-                        }
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/getPaymentSchedule": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
-                                "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
-                                "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
-                                "payment_schedule_status": "enabled",
-                                "payment_schedule_amount": 100,
-                                "payment_schedule_currency_code": "USD",
-                                "payment_schedule_next_date": "2017-03-01",
-                                "payment_schedule_frequency": "once",
-                                "payment_schedule_end_date": "2017-03-05",
-                                "payment_schedule_remaining_occurrences": 10
-                            }
-                        }
-                    }
-                },
-                "summary": "Retrieve a Payment Schedule",
-                "description": "",
-                "tags": [
-                    "Payment Schedules"
-                ],
-                "parameters": [
-                    {
-                        "name": "payment_schedule_id",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/PaymentSchedule"
-                        }
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/getPaymentSchedules": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": [
-                                {
-                                    "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
-                                    "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
-                                    "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
-                                    "payment_schedule_status": "enabled",
-                                    "payment_schedule_amount": 100,
-                                    "payment_schedule_currency_code": "USD",
-                                    "payment_schedule_next_date": "2017-03-01",
-                                    "payment_schedule_frequency": "once",
-                                    "payment_schedule_end_date": "2017-03-05",
-                                    "payment_schedule_remaining_occurrences": 10
-                                }
-                            ]
-                        }
-                    }
-                },
-                "summary": "Retrieve All Payment Schedules for a Payment Profile",
-                "description": "",
-                "tags": [
-                    "Payment Schedules"
-                ],
-                "parameters": [
-                    {
-                        "name": "payment_profile_id",
-                        "in": "query",
-                        "description": "The internal ID (UUID) of the payment profile",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/savePaymentSchedule": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
-                                "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
-                                "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
-                                "payment_schedule_status": "enabled",
-                                "payment_schedule_amount": 100,
-                                "payment_schedule_currency_code": "USD",
-                                "payment_schedule_next_date": "2017-03-01",
-                                "payment_schedule_frequency": "once",
-                                "payment_schedule_end_date": "2017-03-05",
-                                "payment_schedule_remaining_occurrences": 10
-                            }
-                        }
-                    }
-                },
-                "summary": "Update a Payment Schedule",
-                "description": "",
-                "tags": [
-                    "Payment Schedules"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/PaymentSchedule"
-                        }
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/getPaymentType": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": {
-                                "payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
-                                "payment_type_originator_info_id": "e4339d8b-1e47-4f14-af3b-deb9105fcadc",
-                                "payment_type_name": "Web Payment",
-                                "payment_type_transaction_type": "debit",
-                                "payment_type_status": "enabled",
-                                "payment_type_description": "A bill payment from our website"
-                            }
-                        }
-                    }
-                },
-                "summary": "Retrieve a Payment Type",
-                "description": "",
-                "tags": [
-                    "Payment Types"
-                ],
-                "parameters": [
-                    {
-                        "name": "payment_type_id",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/getPaymentTypes": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "headers": {},
-                        "examples": {
-                            "application/json": [
-                                {
-                                    "payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
-                                    "payment_type_originator_info_id": "e4339d8b-1e47-4f14-af3b-deb9105fcadc",
-                                    "payment_type_name": "Web Payment",
-                                    "payment_type_transaction_type": "debit",
-                                    "payment_type_status": "enabled",
-                                    "payment_type_description": "A bill payment from our website"
-                                },
-                                {
-                                    "payment_type_id": "686f45b6-2be4-4dc0-8f87-88b4035ee565",
-                                    "payment_type_originator_info_id": "e4339d8b-1e47-4f14-af3b-deb9105fcadc",
-                                    "payment_type_name": "Refund",
-                                    "payment_type_transaction_type": "credit",
-                                    "payment_type_status": "enabled",
-                                    "payment_type_description": "For refunding of cancelled service."
-                                }
-                            ]
-                        }
-                    }
-                },
-                "summary": "Retrieve All Payment Types",
-                "description": "",
-                "tags": [
-                    "Payment Types"
-                ],
-                "parameters": [],
-                "produces": [
-                    "application/json"
-                ]
-            }
-        }
+        "summary": "Disconnect",
+        "description": "",
+        "tags": [
+          "Connect and Authenticate"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ]
+      }
     },
-    "definitions": {
-        "Connect": {},
-        "Disconnect": {},
-        "Retrieve a Payment Profile": {},
-        "Retrieve a Payment Profile by External ID": {},
-        "Create a Payment Profile": {},
-        "Update a Payment Profile": {},
-        "Retrieve an External Account": {},
-        "Create an External Account": {},
-        "Update an External Account": {},
-        "Retrieve a Payment Schedule": {},
-        "Retrieve All Payment Schedules for a Payment Profile": {},
-        "Create a Payment Schedule": {},
-        "Update a Payment Schedule": {},
-        "Retrieve a Payment Type": {},
-        "Retrieve All Payment Types": {},
-        "PaymentProfile": {
-            "type": "object",
-            "required": [
-                "payment_profile_id"
-            ],
-            "properties": {
-                "payment_profile_id": {
-                    "type": "string"
-                },
-                "payment_profile_originator_info_id": {
-                    "type": "string"
-                },
-                "payment_profile_external_id": {
-                    "type": "string"
-                },
-                "payment_profile_password": {
-                    "type": "string"
-                },
-                "payment_profile_first_name": {
-                    "type": "string"
-                },
-                "payment_profile_last_name": {
-                    "type": "string"
-                },
-                "payment_profile_email_address": {
-                    "type": "string"
-                },
-                "payment_profile_security_question_1": {
-                    "type": "string"
-                },
-                "payment_profile_security_question_2": {
-                    "type": "string"
-                },
-                "payment_profile_security_question_3": {
-                    "type": "string"
-                },
-                "payment_profile_security_answer_1": {
-                    "type": "string"
-                },
-                "payment_profile_security_answer_2": {
-                    "type": "string"
-                },
-                "payment_profile_security_answer_3": {
-                    "type": "string"
-                },
-                "payment_profile_status": {
-                    "type": "string"
-                }
+    "/getPaymentProfile": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+                "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
+                "payment_profile_external_id": "customer-15141",
+                "payment_profile_password": "supersecret",
+                "payment_profile_first_name": "Smith",
+                "payment_profile_email_address": "henry.smith@example.com",
+                "payment_profile_security_question_1": "What is your name?",
+                "payment_profile_security_question_2": "What is your quest?",
+                "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
+                "payment_profile_security_answer_1": "Arthur, King of the Britons",
+                "payment_profile_security_answer_2": "To seek the Holy Grail",
+                "payment_profile_security_answer_3": "African or European swallow?",
+                "payment_profile_status": "enabled"
+              }
             }
+          }
         },
-        "PaymentProfileCreate": {
-            "type": "object",
-            "properties": {
-                "payment_profile_originator_info_id": {
-                    "type": "string"
-                },
-                "payment_profile_external_id": {
-                    "type": "string"
-                },
-                "payment_profile_password": {
-                    "type": "string"
-                },
-                "payment_profile_first_name": {
-                    "type": "string"
-                },
-                "payment_profile_last_name": {
-                    "type": "string"
-                },
-                "payment_profile_email_address": {
-                    "type": "string"
-                },
-                "payment_profile_security_question_1": {
-                    "type": "string"
-                },
-                "payment_profile_security_question_2": {
-                    "type": "string"
-                },
-                "payment_profile_security_question_3": {
-                    "type": "string"
-                },
-                "payment_profile_security_answer_1": {
-                    "type": "string"
-                },
-                "payment_profile_security_answer_2": {
-                    "type": "string"
-                },
-                "payment_profile_security_answer_3": {
-                    "type": "string"
-                },
-                "payment_profile_status": {
-                    "type": "string"
-                }
+        "summary": "Retrieve a Payment Profile",
+        "description": "Each payment profile represents a customer, and includes first and last name, email \n  address, password, security questions/answers and status. A payment profile can have \n  multiple external accounts (e.g. bank accounts) and payment schedules.\n",
+        "tags": [
+          "Payment Profiles"
+        ],
+        "parameters": [
+          {
+            "name": "payment_profile_id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/PaymentProfile"
             }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/getPaymentProfileByExtId": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+                "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
+                "payment_profile_external_id": "customer-15141",
+                "payment_profile_password": "supersecret",
+                "payment_profile_first_name": "Smith",
+                "payment_profile_email_address": "henry.smith@example.com",
+                "payment_profile_security_question_1": "What is your name?",
+                "payment_profile_security_question_2": "What is your quest?",
+                "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
+                "payment_profile_security_answer_1": "Arthur, King of the Britons",
+                "payment_profile_security_answer_2": "To seek the Holy Grail",
+                "payment_profile_security_answer_3": "African or European swallow?",
+                "payment_profile_status": "enabled"
+              }
+            }
+          }
         },
-        "ExternalAccount": {
-            "type": "object",
-            "required": [
-                "external_account_id"
-            ],
-            "properties": {
-                "external_account_id": {
-                    "type": "string"
-                },
-                "external_account_datetime": {
-                    "type": "string"
-                },
-                "external_account_payment_profile_id": {
-                    "type": "string"
-                },
-                "external_account_type": {
-                    "type": "string"
-                },
-                "external_account_name": {
-                    "type": "string"
-                },
-                "external_account_bank": {
-                    "type": "string"
-                },
-                "external_account_holder": {
-                    "type": "string"
-                },
-                "external_account_country_code": {
-                    "type": "string"
-                },
-                "external_account_dfi_id": {
-                    "type": "string"
-                },
-                "external_account_number": {
-                    "type": "string"
-                },
-                "external_account_billing_address": {
-                    "type": "string"
-                },
-                "external_account_billing_city": {
-                    "type": "string"
-                },
-                "external_account_billing_state_province": {
-                    "type": "string"
-                },
-                "external_account_billing_postal_code": {
-                    "type": "string"
-                },
-                "external_account_billing_country": {
-                    "type": "string"
-                },
-                "external_account_business": {
-                    "type": "boolean"
-                },
-                "external_account_verification_status": {
-                    "type": "string"
-                },
-                "external_account_status": {
-                    "type": "string"
-                }
+        "summary": "Retrieve a Payment Profile by External ID",
+        "description": "OpenACH allows you to reference payment profiles by their \"external id' - an ID that\n  the entity is known by in your system (e.g. \"external\" to OpenACH).\n",
+        "tags": [
+          "Payment Profiles"
+        ],
+        "parameters": [
+          {
+            "name": "payment_profile_external_id",
+            "in": "query",
+            "description": "External ID (public, e.g. for external reference)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/savePaymentProfile": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "payment_profile_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+                "payment_profile_originator_info_id": "5ca86942-1af9-4abb-a9c3-a4bb837c73b5",
+                "payment_profile_external_id": "customer-15141",
+                "payment_profile_password": "supersecret",
+                "payment_profile_first_name": "Smith",
+                "payment_profile_email_address": "henry.smith@example.com",
+                "payment_profile_security_question_1": "What is your name?",
+                "payment_profile_security_question_2": "What is your quest?",
+                "payment_profile_security_question_3": "What is the airspeed velocity of an unladen swallow?",
+                "payment_profile_security_answer_1": "Arthur, King of the Britons",
+                "payment_profile_security_answer_2": "To seek the Holy Grail",
+                "payment_profile_security_answer_3": "African or European swallow?",
+                "payment_profile_status": "enabled"
+              }
             }
+          }
         },
-        "ExternalAccountCreate": {
-            "type": "object",
-            "properties": {
-                "external_account_datetime": {
-                    "type": "string"
-                },
-                "external_account_payment_profile_id": {
-                    "type": "string"
-                },
-                "external_account_type": {
-                    "type": "string"
-                },
-                "external_account_name": {
-                    "type": "string"
-                },
-                "external_account_bank": {
-                    "type": "string"
-                },
-                "external_account_holder": {
-                    "type": "string"
-                },
-                "external_account_country_code": {
-                    "type": "string"
-                },
-                "external_account_dfi_id": {
-                    "type": "string"
-                },
-                "external_account_number": {
-                    "type": "string"
-                },
-                "external_account_billing_address": {
-                    "type": "string"
-                },
-                "external_account_billing_city": {
-                    "type": "string"
-                },
-                "external_account_billing_state_province": {
-                    "type": "string"
-                },
-                "external_account_billing_postal_code": {
-                    "type": "string"
-                },
-                "external_account_billing_country": {
-                    "type": "string"
-                },
-                "external_account_business": {
-                    "type": "boolean"
-                },
-                "external_account_verification_status": {
-                    "type": "string"
-                },
-                "external_account_status": {
-                    "type": "string"
-                }
+        "summary": "Update a Payment Profile",
+        "description": "",
+        "tags": [
+          "Payment Profiles"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/PaymentProfile"
             }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/getExternalAccount": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "external_account_id": "085ecf6f-3298-42e0-bbe5-196ca186b0d2",
+                "external_account_payment_profile_id": "87798775-bc35-46d1-81ef-0beacab16131",
+                "external_account_type": "checking",
+                "external_account_name": "My Checking Account",
+                "external_account_bank": "US Bank",
+                "external_account_holder": "Henry Smith",
+                "external_account_country_code": "US",
+                "external_account_dfi_id": 101000187,
+                "external_account_number": "123456790",
+                "external_account_billing_address": "123 Easy Street",
+                "external_account_billing_city": "Anytown",
+                "external_account_billing_state_province": "NY",
+                "external_account_billing_postal_code": "12345",
+                "external_account_business": true,
+                "external_account_status": "enabled"
+              }
+            }
+          }
         },
-        "PaymentSchedule": {
-            "type": "object",
-            "required": [
-                "payment_schedule_id"
-            ],
-            "properties": {
-                "payment_schedule_id": {
-                    "type": "string"
-                },
-                "payment_schedule_external_account_id": {
-                    "type": "string"
-                },
-                "payment_schedule_payment_type_id": {
-                    "type": "string"
-                },
-                "payment_schedule_status": {
-                    "type": "string"
-                },
-                "payment_schedule_amount": {
-                    "type": "number"
-                },
-                "payment_schedule_currency_code": {
-                    "type": "string"
-                },
-                "payment_schedule_next_date": {
-                    "type": "string"
-                },
-                "payment_schedule_frequency": {
-                    "type": "string"
-                },
-                "payment_schedule_end_date: `2017-03-05` (string) - The end date for the payment schedule.  Note that this should extend past the final transaction date, unless the freqency is _daily_": {
-                    "type": "string"
-                },
-                "payment_schedule_remaining_occurrences": {
-                    "type": "number"
-                }
+        "summary": "Retrieve an External Account",
+        "description": "External accounts are simply customer bank accounts. It may seem odd at first to refer to them as \"external accounts\" instead of \"bank accounts\", but understand that OpenACH deals with all sorts of different bank accounts. These particular bank accounts are external in the fact that they belong to people other than the originator, and more than likely reside at other banks than the originator's bank account(s). We chose not to rename them simply for the API in order to avoid confusion for developers who work with both internal and SDK aspects of OpenACH. When you are using the API, just remember that \"external account\" simply means \"bank account\".\n\nAny given payment profile may have multiple external accounts, and a single external account may be associated with many payment schedules. External accounts are defined by bank name, bank country, routing/SWIFT number, account number, account holder name, account type, and a billing address (required only for international transactions).\n",
+        "tags": [
+          "External Accounts"
+        ],
+        "parameters": [
+          {
+            "name": "external_account_id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/saveExternalAccount": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "external_account_id": "5a47698e-38c9-405e-99cd-8429599b1b23",
+                "external_account_payment_profile_id": "87798775-bc35-46d1-81ef-0beacab16131",
+                "external_account_type": "checking",
+                "external_account_name": "My Checking Account",
+                "external_account_bank": "US Bank",
+                "external_account_holder": "Henry Smith",
+                "external_account_country_code": "US",
+                "external_account_dfi_id": 101000187,
+                "external_account_number": "123456790",
+                "external_account_billing_address": "123 Easy Street",
+                "external_account_billing_city": "Anytown",
+                "external_account_billing_state_province": "NY",
+                "external_account_billing_postal_code": "12345",
+                "external_account_business": true,
+                "external_account_status": "enabled"
+              }
             }
+          }
         },
-        "PaymentScheduleCreate": {
-            "type": "object",
-            "properties": {
-                "payment_schedule_external_account_id": {
-                    "type": "string"
-                },
-                "payment_schedule_payment_type_id": {
-                    "type": "string"
-                },
-                "payment_schedule_status": {
-                    "type": "string"
-                },
-                "payment_schedule_amount": {
-                    "type": "number"
-                },
-                "payment_schedule_currency_code": {
-                    "type": "string"
-                },
-                "payment_schedule_next_date": {
-                    "type": "string"
-                },
-                "payment_schedule_frequency": {
-                    "type": "string"
-                },
-                "payment_schedule_end_date: `2017-03-05` (string) - The end date for the payment schedule.  Note that this should extend past the final transaction date, unless the freqency is _daily_": {
-                    "type": "string"
-                },
-                "payment_schedule_remaining_occurrences": {
-                    "type": "number"
-                }
+        "summary": "Update an External Account",
+        "description": "",
+        "tags": [
+          "External Accounts"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ExternalAccount"
             }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/getPaymentSchedule": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
+                "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                "payment_schedule_status": "enabled",
+                "payment_schedule_amount": 100,
+                "payment_schedule_currency_code": "USD",
+                "payment_schedule_next_date": "2017-03-01",
+                "payment_schedule_frequency": "once",
+                "payment_schedule_end_date": "2017-03-05",
+                "payment_schedule_remaining_occurrences": 10
+              }
+            }
+          }
         },
-        "PaymentType": {
-            "type": "object",
-            "properties": {
-                "payment_type_id": {
-                    "type": "string"
-                },
-                "payment_type_originator_info_id": {
-                    "type": "string"
-                },
-                "payment_type_name": {
-                    "type": "string"
-                },
-                "payment_type_transaction_type: `debit` (string) - The type of transaction that this payment type generates. One of: _credit_, _debit_.  A type of _debit_ will debit the payment profile's bank account, and credit the originator's account, e.g. move funds FROM the payment profile's account TO the originator.  A type of _credit_ will credit the payment profile's bank account, and debit the originator's account, e.g. move funds FROM the originator TO the payment profile's account.": {
-                    "type": "string"
-                },
-                "payment_type_status": {
-                    "type": "string"
-                },
-                "payment_type_description": {
-                    "type": "string"
-                }
+        "summary": "Retrieve a Payment Schedule",
+        "description": "At the heart of OpenACH are payment schedules. Each individual payment schedule is associated with a single external account which is used to process the payment(s). Payment schedules can be created as one-time payments, or recurring payments with intervals of daily, weekly, biweekly, monthly, bimonthly, biannually, annually, or biennially. Each payment schedule is assigned an amount, payment type, currency code, next date, frequency, an end date, and status. OpenACH automatically calculates the remaining occurrences for each payment schedule based on this information. Each payment schedule is linked to a payment type.\n",
+        "tags": [
+          "Payment Schedules"
+        ],
+        "parameters": [
+          {
+            "name": "payment_schedule_id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/PaymentSchedule"
             }
-        }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/getPaymentSchedules": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": [
+                {
+                  "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                  "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
+                  "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                  "payment_schedule_status": "enabled",
+                  "payment_schedule_amount": 100,
+                  "payment_schedule_currency_code": "USD",
+                  "payment_schedule_next_date": "2017-03-01",
+                  "payment_schedule_frequency": "once",
+                  "payment_schedule_end_date": "2017-03-05",
+                  "payment_schedule_remaining_occurrences": 10
+                }
+              ]
+            }
+          }
+        },
+        "summary": "Retrieve All Payment Schedules for a Payment Profile",
+        "description": "",
+        "tags": [
+          "Payment Schedules"
+        ],
+        "parameters": [
+          {
+            "name": "payment_profile_id",
+            "in": "query",
+            "description": "The internal ID (UUID) of the payment profile",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/savePaymentSchedule": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "payment_schedule_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                "payment_schedule_external_account_id": "87798775-bc35-46d1-81ef-0beacab16131",
+                "payment_schedule_payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                "payment_schedule_status": "enabled",
+                "payment_schedule_amount": 100,
+                "payment_schedule_currency_code": "USD",
+                "payment_schedule_next_date": "2017-03-01",
+                "payment_schedule_frequency": "once",
+                "payment_schedule_end_date": "2017-03-05",
+                "payment_schedule_remaining_occurrences": 10
+              }
+            }
+          }
+        },
+        "summary": "Update a Payment Schedule",
+        "description": "",
+        "tags": [
+          "Payment Schedules"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/PaymentSchedule"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/getPaymentType": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                "payment_type_originator_info_id": "e4339d8b-1e47-4f14-af3b-deb9105fcadc",
+                "payment_type_name": "Web Payment",
+                "payment_type_transaction_type": "debit",
+                "payment_type_status": "enabled",
+                "payment_type_description": "A bill payment from our website"
+              }
+            }
+          }
+        },
+        "summary": "Retrieve a Payment Type",
+        "description": "To process payments, each origination account in OpenACH is configured with one or more payment types which define the transaction as either a credit (depositing funds INTO an external account), or a debit (withdrawing funds FROM an external account). They can only be modified from within the OpenACH web interface and are available through the API simply for reference when setting up new payment schedules.\n",
+        "tags": [
+          "Payment Types"
+        ],
+        "parameters": [
+          {
+            "name": "payment_type_id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/getPaymentTypes": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": [
+                {
+                  "payment_type_id": "7a3fc2ae-7bfb-41db-9d28-56b908d2ac65",
+                  "payment_type_originator_info_id": "e4339d8b-1e47-4f14-af3b-deb9105fcadc",
+                  "payment_type_name": "Web Payment",
+                  "payment_type_transaction_type": "debit",
+                  "payment_type_status": "enabled",
+                  "payment_type_description": "A bill payment from our website"
+                },
+                {
+                  "payment_type_id": "686f45b6-2be4-4dc0-8f87-88b4035ee565",
+                  "payment_type_originator_info_id": "e4339d8b-1e47-4f14-af3b-deb9105fcadc",
+                  "payment_type_name": "Refund",
+                  "payment_type_transaction_type": "credit",
+                  "payment_type_status": "enabled",
+                  "payment_type_description": "For refunding of cancelled service."
+                }
+              ]
+            }
+          }
+        },
+        "summary": "Retrieve All Payment Types",
+        "description": "",
+        "tags": [
+          "Payment Types"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ]
+      }
     }
+  },
+  "definitions": {
+    "Connect": {},
+    "Disconnect": {},
+    "Retrieve a Payment Profile": {},
+    "Retrieve a Payment Profile by External ID": {},
+    "Create a Payment Profile": {},
+    "Update a Payment Profile": {},
+    "Retrieve an External Account": {},
+    "Create an External Account": {},
+    "Update an External Account": {},
+    "Retrieve a Payment Schedule": {},
+    "Retrieve All Payment Schedules for a Payment Profile": {},
+    "Create a Payment Schedule": {},
+    "Update a Payment Schedule": {},
+    "Retrieve a Payment Type": {},
+    "Retrieve All Payment Types": {},
+    "PaymentProfile": {
+      "type": "object",
+      "required": [
+        "payment_profile_id"
+      ],
+      "properties": {
+        "payment_profile_id": {
+          "type": "string"
+        },
+        "payment_profile_originator_info_id": {
+          "type": "string"
+        },
+        "payment_profile_external_id": {
+          "type": "string"
+        },
+        "payment_profile_password": {
+          "type": "string"
+        },
+        "payment_profile_first_name": {
+          "type": "string"
+        },
+        "payment_profile_last_name": {
+          "type": "string"
+        },
+        "payment_profile_email_address": {
+          "type": "string"
+        },
+        "payment_profile_security_question_1": {
+          "type": "string"
+        },
+        "payment_profile_security_question_2": {
+          "type": "string"
+        },
+        "payment_profile_security_question_3": {
+          "type": "string"
+        },
+        "payment_profile_security_answer_1": {
+          "type": "string"
+        },
+        "payment_profile_security_answer_2": {
+          "type": "string"
+        },
+        "payment_profile_security_answer_3": {
+          "type": "string"
+        },
+        "payment_profile_status": {
+          "type": "string"
+        }
+      }
+    },
+    "PaymentProfileCreate": {
+      "type": "object",
+      "properties": {
+        "payment_profile_originator_info_id": {
+          "type": "string"
+        },
+        "payment_profile_external_id": {
+          "type": "string"
+        },
+        "payment_profile_password": {
+          "type": "string"
+        },
+        "payment_profile_first_name": {
+          "type": "string"
+        },
+        "payment_profile_last_name": {
+          "type": "string"
+        },
+        "payment_profile_email_address": {
+          "type": "string"
+        },
+        "payment_profile_security_question_1": {
+          "type": "string"
+        },
+        "payment_profile_security_question_2": {
+          "type": "string"
+        },
+        "payment_profile_security_question_3": {
+          "type": "string"
+        },
+        "payment_profile_security_answer_1": {
+          "type": "string"
+        },
+        "payment_profile_security_answer_2": {
+          "type": "string"
+        },
+        "payment_profile_security_answer_3": {
+          "type": "string"
+        },
+        "payment_profile_status": {
+          "type": "string"
+        }
+      }
+    },
+    "ExternalAccount": {
+      "type": "object",
+      "required": [
+        "external_account_id"
+      ],
+      "properties": {
+        "external_account_id": {
+          "type": "string"
+        },
+        "external_account_datetime": {
+          "type": "string"
+        },
+        "external_account_payment_profile_id": {
+          "type": "string"
+        },
+        "external_account_type": {
+          "type": "string"
+        },
+        "external_account_name": {
+          "type": "string"
+        },
+        "external_account_bank": {
+          "type": "string"
+        },
+        "external_account_holder": {
+          "type": "string"
+        },
+        "external_account_country_code": {
+          "type": "string"
+        },
+        "external_account_dfi_id": {
+          "type": "string"
+        },
+        "external_account_number": {
+          "type": "string"
+        },
+        "external_account_billing_address": {
+          "type": "string"
+        },
+        "external_account_billing_city": {
+          "type": "string"
+        },
+        "external_account_billing_state_province": {
+          "type": "string"
+        },
+        "external_account_billing_postal_code": {
+          "type": "string"
+        },
+        "external_account_billing_country": {
+          "type": "string"
+        },
+        "external_account_business": {
+          "type": "boolean"
+        },
+        "external_account_verification_status": {
+          "type": "string"
+        },
+        "external_account_status": {
+          "type": "string"
+        }
+      }
+    },
+    "ExternalAccountCreate": {
+      "type": "object",
+      "properties": {
+        "external_account_datetime": {
+          "type": "string"
+        },
+        "external_account_payment_profile_id": {
+          "type": "string"
+        },
+        "external_account_type": {
+          "type": "string"
+        },
+        "external_account_name": {
+          "type": "string"
+        },
+        "external_account_bank": {
+          "type": "string"
+        },
+        "external_account_holder": {
+          "type": "string"
+        },
+        "external_account_country_code": {
+          "type": "string"
+        },
+        "external_account_dfi_id": {
+          "type": "string"
+        },
+        "external_account_number": {
+          "type": "string"
+        },
+        "external_account_billing_address": {
+          "type": "string"
+        },
+        "external_account_billing_city": {
+          "type": "string"
+        },
+        "external_account_billing_state_province": {
+          "type": "string"
+        },
+        "external_account_billing_postal_code": {
+          "type": "string"
+        },
+        "external_account_billing_country": {
+          "type": "string"
+        },
+        "external_account_business": {
+          "type": "boolean"
+        },
+        "external_account_verification_status": {
+          "type": "string"
+        },
+        "external_account_status": {
+          "type": "string"
+        }
+      }
+    },
+    "PaymentSchedule": {
+      "type": "object",
+      "required": [
+        "payment_schedule_id"
+      ],
+      "properties": {
+        "payment_schedule_id": {
+          "type": "string"
+        },
+        "payment_schedule_external_account_id": {
+          "type": "string"
+        },
+        "payment_schedule_payment_type_id": {
+          "type": "string"
+        },
+        "payment_schedule_status": {
+          "type": "string"
+        },
+        "payment_schedule_amount": {
+          "type": "number"
+        },
+        "payment_schedule_currency_code": {
+          "type": "string"
+        },
+        "payment_schedule_next_date": {
+          "type": "string"
+        },
+        "payment_schedule_frequency": {
+          "type": "string"
+        },
+        "payment_schedule_end_date: `2017-03-05` (string) - The end date for the payment schedule.  Note that this should extend past the final transaction date, unless the freqency is _daily_": {
+          "type": "string"
+        },
+        "payment_schedule_remaining_occurrences": {
+          "type": "number"
+        }
+      }
+    },
+    "PaymentScheduleCreate": {
+      "type": "object",
+      "properties": {
+        "payment_schedule_external_account_id": {
+          "type": "string"
+        },
+        "payment_schedule_payment_type_id": {
+          "type": "string"
+        },
+        "payment_schedule_status": {
+          "type": "string"
+        },
+        "payment_schedule_amount": {
+          "type": "number"
+        },
+        "payment_schedule_currency_code": {
+          "type": "string"
+        },
+        "payment_schedule_next_date": {
+          "type": "string"
+        },
+        "payment_schedule_frequency": {
+          "type": "string"
+        },
+        "payment_schedule_end_date: `2017-03-05` (string) - The end date for the payment schedule.  Note that this should extend past the final transaction date, unless the freqency is _daily_": {
+          "type": "string"
+        },
+        "payment_schedule_remaining_occurrences": {
+          "type": "number"
+        }
+      }
+    },
+    "PaymentType": {
+      "type": "object",
+      "properties": {
+        "payment_type_id": {
+          "type": "string"
+        },
+        "payment_type_originator_info_id": {
+          "type": "string"
+        },
+        "payment_type_name": {
+          "type": "string"
+        },
+        "payment_type_transaction_type: `debit` (string) - The type of transaction that this payment type generates. One of: _credit_, _debit_.  A type of _debit_ will debit the payment profile's bank account, and credit the originator's account, e.g. move funds FROM the payment profile's account TO the originator.  A type of _credit_ will credit the payment profile's bank account, and debit the originator's account, e.g. move funds FROM the originator TO the payment profile's account.": {
+          "type": "string"
+        },
+        "payment_type_status": {
+          "type": "string"
+        },
+        "payment_type_description": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }
