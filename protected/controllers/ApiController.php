@@ -61,7 +61,9 @@ class ApiController extends OAController
 			'savePaymentProfileComplete' => array(
 				'class' => 'application.controllers.actions.paymentProfile.SaveComplete',
 			),
-
+			'deletePaymentProfile' => array(
+				'class' => 'application.controllers.actions.paymentProfile.Delete',
+			),
 			// External Account Actions
 			'getExternalAccount' => array(
 				'class' => 'application.controllers.actions.externalAccount.GetById',

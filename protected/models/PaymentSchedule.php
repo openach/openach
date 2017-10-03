@@ -65,7 +65,7 @@ class PaymentSchedule extends OADataSource
 			array('payment_schedule_id, payment_schedule_external_account_id, payment_schedule_payment_type_id', 'length', 'max'=>36),
 			array('payment_schedule_status', 'length', 'max'=>9),
 			array('payment_schedule_amount', 'length', 'max'=>19),
-			array('payment_schedule_amount', 'numerical', 'min'=>0, 'max'=>99999999.99),
+			array('payment_schedule_amount', 'numerical', 'min'=>0.01, 'max'=>99999999.99),
 			array('payment_schedule_currency_code', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
