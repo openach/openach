@@ -58,8 +58,15 @@ class SaveComplete extends OAApiAction
 			throw new \Exception( 'Not authorized to update records for the specified payment_profile_originator_info_id.' );
 		}
 
-		// Existing record
-		if ( Yii::app()->request->getParam( 'payment_profile_id' ) )
+		// Existing record check - by external id
+		if ( Yii::app()->request->getParam( 'payment_profile_external_id' )
+			&& $paymentProfile = $this->loadPaymentProfileByExtId( Yii::app()->request->getParam( 'payment_profile_external_id' ) ) )
+		{
+			// The profile already exists... we now have it set in paymentProfile
+            // Nothing much to do here.  Continue after if/else block...
+		}
+		// Existing record check - by id
+		elseif ( Yii::app()->request->getParam( 'payment_profile_id' ) )
 		{
 			$paymentProfile = $this->loadPaymentProfile( Yii::app()->request->getParam( 'payment_profile_id' ) );
 			// If this is an existing record, make sure we can find it
@@ -71,26 +78,6 @@ class SaveComplete extends OAApiAction
 		// New Record
 		else
 		{
-			// Only perform this check if the payment_profile_external_id is provided - if they don't provide it, 
-			// they will get an error back from the PaymentProfile's rule validation when we try to save it.
-			// This is just to ensure that they don't try to duplicate external ids, as they are constrained 
-			// as unique within a given payment_profile_originator_info_id
-			if ( $payment_profile_external_id = Yii::app()->request->getParam( 'payment_profile_external_id' ) )
-			{
-				// Verify that this external id doesn't already exist
-				$criteria = new CDbCriteria();
-				$criteria->addCondition( 'payment_profile_external_id = :payment_profile_external_id' );
-				$criteria->addCondition( 'payment_profile_originator_info_id = :originator_info_id' );
-				$criteria->params = array(
-						':payment_profile_external_id' => $payment_profile_external_id,
-						':originator_info_id' => $this->userApi->user_api_originator_info_id,
-					);
-				if ( $model = PaymentProfile::model()->find( $criteria ) )
-				{
-					throw new \Exception( 'A payment profile with that external id already exists.' );
-				}
-			}
-
 			$paymentProfile = new PaymentProfile();
 		}
 
@@ -151,8 +138,9 @@ class SaveComplete extends OAApiAction
 			}
 		}
 
-		// Set required fields that aren't pulled in through the apiImport
+		// Set required fields that aren't pulled in through the apiImport, or may have issues
 		$externalAccount->external_account_payment_profile_id = $this->paymentProfile->payment_profile_id;
+		$externalAccount->external_account_business = Yii::app()->request->getParam('external_account_business') ? 1 : 0;
 
 		if ( ! $externalAccount->save() )
 		{

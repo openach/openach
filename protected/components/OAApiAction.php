@@ -132,4 +132,16 @@ class OAApiAction extends CAction
 		return PaymentProfile::model()->find( $criteria );
 	}
 
+	protected function loadPaymentProfileByExtId( $payment_profile_external_id )
+	{
+		$criteria = new CDbCriteria();
+		$criteria->addCondition( 'payment_profile_external_id = :payment_profile_external_id' );
+		$criteria->addCondition( 'payment_profile_originator_info_id = :originator_info_id' );
+		$criteria->params = array(
+				':payment_profile_external_id' => $payment_profile_external_id,
+				':originator_info_id' => $this->userApi->user_api_originator_info_id,
+			);
+		return PaymentProfile::model()->find( $criteria );
+	}
+
 }
