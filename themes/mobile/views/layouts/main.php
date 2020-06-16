@@ -68,9 +68,9 @@
 
 	// Use Yii CClientScript to load the CSS files
 	$clientScript->registerCssFile( Yii::app()->request->baseUrl . '/css/form.css' );
-	$clientScript->registerCssFile( 'http://code.jquery.com/ui/' . $jquiVersion . '/themes/base/jquery-ui.css' );
+	$clientScript->registerCssFile( 'https://code.jquery.com/ui/' . $jquiVersion . '/themes/base/jquery-ui.css' );
 	// $clientScript->registerCssFile( Yii::app()->request->baseUrl . '/css/jquery.mobile-1.0.1.min.css' );
-	$clientScript->registerCssFile( 'http://code.jquery.com/mobile/' . $jqmVersion . '/jquery.mobile-' . $jqmVersion . '.min.css' );
+	$clientScript->registerCssFile( 'https://code.jquery.com/mobile/' . $jqmVersion . '/jquery.mobile-' . $jqmVersion . '.min.css' );
 	$clientScript->registerCssFile( Yii::app()->request->baseUrl . '/css/jquery.mobile.datebox-1.0.0.min.css' );
 	$clientScript->registerCssFile( Yii::app()->request->baseUrl . '/css/jquery.mobile.simpledialog.min.css' );
 	$clientScript->registerCssFile( Yii::app()->request->baseUrl . '/css/jquery.ui.keypad.css' );
@@ -81,12 +81,12 @@
 	// Use Yii CClientScript to load the javascript files so JQuery doesn't double load
 
 	$clientScript = Yii::app()->clientScript;
-	//$clientScript->registerScriptFile('http://code.jquery.com/jquery-1.6.3.min.js', CClientScript::POS_HEAD);
-	$clientScript->registerScriptFile('http://code.jquery.com/ui/' . $jquiVersion . '/jquery-ui.min.js', CClientScript::POS_HEAD);
+	//$clientScript->registerScriptFile('https://code.jquery.com/jquery-1.6.3.min.js', CClientScript::POS_HEAD);
+	$clientScript->registerScriptFile('https://code.jquery.com/ui/' . $jquiVersion . '/jquery-ui.min.js', CClientScript::POS_HEAD);
 	$clientScript->registerScriptFile('/js/jquery.pre-mobile.js', CClientScript::POS_HEAD);
 	$clientScript->registerScriptFile('/js/jquery.appear-1.1.1.min.js', CClientScript::POS_HEAD);
 	//$clientScript->registerScriptFile('/js/jquery.mobile-1.0.1.min.js', CClientScript::POS_HEAD);
-	$clientScript->registerScriptFile('http://code.jquery.com/mobile/' . $jqmVersion . '/jquery.mobile-' . $jqmVersion . '.min.js', CClientScript::POS_HEAD);
+	$clientScript->registerScriptFile('https://code.jquery.com/mobile/' . $jqmVersion . '/jquery.mobile-' . $jqmVersion . '.min.js', CClientScript::POS_HEAD);
 
 	// Load the core active form validation and list view libraries
 	$clientScript->registerCoreScript('yiiactiveform');
@@ -157,7 +157,7 @@ endif; ?>
 <?php if ( ! Yii::app()->user->isGuest ): ?>
 				<li><a data-icon="gear" data-rel="popup" href="#<?= $this->getPopupMenuId(); ?>" data-position-to="window">Actions</a></li>
 <?php else: ?>
-				<li><a data-icon="grid" rel="external" href="http://openach.com">openach.com</a></li>
+				<li><a data-icon="grid" rel="external" href="https://openach.com">openach.com</a></li>
 <?php endif; ?>
 
 			</ul>
