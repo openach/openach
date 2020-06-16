@@ -27,16 +27,26 @@ class FedACHUpdateCommand extends CConsoleCommand
 		$this->actionWire();
 	}
 
+        protected function notAvailable()
+        {
+                echo 'The FedACH and FedWire directories are no longer publicly available. If you know of a free/open source for this data, please contact us and we will update this command to pull from that source instead.' . PHP_EOL;
+                exit;
+        }
+
 	public function actionAch()
 	{
-		$this->loadFedData( 'FedACHDirectoryConfig', 'FedACHDirectoryFileReader' );
+                $this->notAvailable();
+		// $this->loadFedData( 'FedACHDirectoryConfig', 'FedACHDirectoryFileReader' );
 	}
 
 	public function actionWire()
 	{
-Yii::import( 'application.models.*' );
+                $this->notAvailable();
+                /*
+                Yii::import( 'application.models.*' );
 		$test = new \FedACH();
 		$this->loadFedData( 'FedwireDirectoryConfig', 'FedwireDirectoryFileReader' );
+                */
 	}
 
 	protected function loadFedData( $fileReaderConfigClass, $fileReaderClass )
