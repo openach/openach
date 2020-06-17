@@ -28,8 +28,6 @@ class AltBatchBuilderCommand extends CConsoleCommand
 		 * 3.  Create a new ACH File record and a ACH Batch record(s) to populate with the ach_entry records we find.
 		 */ 
 		
-		echo 'Building Batches and Files...' . PHP_EOL;
-
 		$command = AchEntry::model()->getAllUnbatchedQuery();
 		$command->selectDistinct( 'odfi_branch.odfi_branch_id' );
 		$odfiBranches = $command->queryAll();
@@ -58,7 +56,6 @@ class AltBatchBuilderCommand extends CConsoleCommand
 			$criteria = new CDbCriteria();
 			$criteria->addCondition( 'odfi_branch_id = :odfi_branch_id' );
 			$criteria->params = array( ':odfi_branch_id' => $odfiBranchRow['odfi_branch_id'] );
-
 			$command = AchEntry::model()->getAllUnbatchedQuery( $criteria );
 
 			$originatorInfoIds = $command->selectDistinct( 'originator_info_id' )->queryAll();
@@ -80,6 +77,7 @@ class AltBatchBuilderCommand extends CConsoleCommand
 					if ( ! $originatorInfo->payment_types )
 					{
 						// There are no payment types, so there is no point continuing building batches for this originator_info
+						echo 'Warning: No payment types found for originator_info ' . $originatorInfo->originator_info_id . PHP_EOL;
 						$dbTrans->rollback();
 						continue;
 					}
@@ -88,6 +86,7 @@ class AltBatchBuilderCommand extends CConsoleCommand
 					{
 						// There are somehow no unbatched entries at this point... 
 						// TODO:  This check is redundant, as our getAllUnbatchedQuery might actually cover this.
+						echo 'Warning: No unbatched entries for originator_info ' . $originatorInfo->originator_info_id . PHP_EOL;
 						$dbTrans->rollback();
 						continue;
 					}
