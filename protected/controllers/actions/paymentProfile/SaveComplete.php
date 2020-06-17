@@ -141,6 +141,7 @@ class SaveComplete extends OAApiAction
 		// Set required fields that aren't pulled in through the apiImport, or may have issues
 		$externalAccount->external_account_payment_profile_id = $this->paymentProfile->payment_profile_id;
 		$externalAccount->external_account_business = Yii::app()->request->getParam('external_account_business') ? 1 : 0;
+                $externalAccount->external_account_country_code = $externalAccount->external_account_country_code ? $externalAccount->external_account_country_code : 'US';
 
 		if ( ! $externalAccount->save() )
 		{
