@@ -72,8 +72,8 @@ abstract class OAController extends Controller
 	 */
 	public function createUrl($route,$params=array(),$ampersand='&')
 	{
-		$routeParts = split( '/', $route );
-		if ( count( $routeParts == 2 ) )
+		$routeParts = explode( '/', $route );
+		if ( count( $routeParts ) == 2 )
 		{
 			if ( $this->id == $routeParts[0] && $this->action->id == $routeParts[1] )
 			{
