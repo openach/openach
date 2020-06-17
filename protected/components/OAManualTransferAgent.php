@@ -21,6 +21,10 @@ class OAManualTransferAgent extends OATransferAgent
 			$outboundFile = $this->template($outboundFile,$meta);
 			$outboundPath = $this->template($outboundPath,$meta);
 		}
+		if ( ! file_exists( $outboundPath ) )
+		{
+			mkdir($outboundPath, 0755, true);
+		}
 		$fileName = $outboundPath . $outboundFile . '.ach';
 		$nachaFile = new SplFileObject( $fileName, 'w' );
 		$bytes = $nachaFile->fwrite( $file );

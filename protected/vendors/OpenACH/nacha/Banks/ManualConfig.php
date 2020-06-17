@@ -20,11 +20,11 @@ class ManualConfig extends OABankConfig
 	public function defaults()
 	{
 		return array(
-			'ACH File Path' => '',
-			'ACH Filename' => 'x380.acfh9399.w700',
-			'ACH Confirm Path' => '',
+			'ACH File Path' => 'runtime/export/',
+			'ACH Filename' => '{{id}}',
+			'ACH Confirm Path' => 'runtime/import/',
 			'ACH Confirm Filename' => 'w700.xcfmf198.x380',
-			'ACH Return Path' => '',
+			'ACH Return Path' => 'runtime/import/',
 			'ACH Return Filename' => 'w700.acrt0343.x380',
 		);
 	}
