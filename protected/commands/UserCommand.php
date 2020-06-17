@@ -283,6 +283,7 @@ class UserCommand extends CConsoleCommand
 				$externalAccount->external_account_business = 1;
 				$externalAccount->external_account_allow_originator_payments = true;
 				$externalAccount->external_account_payment_profile_id = '';
+				$externalAccount->external_account_country_code = 'US';
 
 				if ( ! $externalAccount->save() )
 				{
