@@ -7,6 +7,7 @@
  * online at http://openach.com/community/license.txt
  ********************************************************************************/
 
+Yii::import('application.vendors.OpenData.Phonetic.DoubleMetaphone');
 /**
  * ODPhonetic class file.
  *
@@ -184,7 +185,8 @@ class ODPhonetic
 	{
 		if (! extension_loaded("doublemetaphone") )
 		{
-			throw new Exception( 'Double Metaphone extension is required to use this method.  See http://pecl.php.net/package/doublemetaphone for more details.' );
+			$dm = new DoubleMetaphone( $data );
+			return $dm->export();
 		}
 		else
 		{

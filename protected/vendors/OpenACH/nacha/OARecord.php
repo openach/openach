@@ -23,7 +23,7 @@ abstract class OARecord extends ODRecord implements OAHasBuilder
 		}
 	}
 
-	public function build( ODDataSource $dataSource )
+	public function build( OADataSource $dataSource )
 	{
 		if ( ! $dataSource )
 		{

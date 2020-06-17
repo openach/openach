@@ -634,7 +634,7 @@ class AchEntry extends OADataSource
 		return $this->ach_entry_detail_individual_name;
 	}
 
-	public function merge( ODDataSource $record )
+	public function merge( CActiveRecord $record )
 	{
 		parent::merge( $record );
 		// This allows non-record attributes to be merged when parsing entries with addenda records

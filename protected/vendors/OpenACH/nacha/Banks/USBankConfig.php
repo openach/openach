@@ -441,7 +441,7 @@ class USBankConfirmationRecord extends OARecord
 		);
 	}
 	
-	public function remapDataSource( OADataSource $dataSource )
+	public function remapDataSource( ODDataSource $dataSource )
 	{
 		$achFileConf = new AchFileConf();
 		if ( $dataSource->fatal_error_message == '000' )

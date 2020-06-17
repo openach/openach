@@ -188,7 +188,7 @@ class WellsFargoConfirmationRecord extends OAFileControlRecord
 		
 	}
 
-	public function remapDataSource( OADataSource $dataSource )
+	public function remapDataSource( ODDataSource $dataSource )
 	{
 		// Handle the message codes (automates fixing some less severe errors)
 		$this->config->handleConfirmationMessageCodes( $dataSource );
