@@ -18,6 +18,8 @@ class FedACHUpdateCommand extends CConsoleCommand
 
 	public function actionReloadAll()
 	{
+		$this->notAvailable();
+		/*
 		$this->updateRecords = false;
 
 		$this->truncateData( 'FedACH' );	
@@ -25,6 +27,7 @@ class FedACHUpdateCommand extends CConsoleCommand
 
 		$this->truncateData( 'Fedwire' );
 		$this->actionWire();
+		*/
 	}
 
         protected function notAvailable()
