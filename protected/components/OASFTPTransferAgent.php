@@ -7,6 +7,9 @@
  * online at http://openach.com/community/license.txt
  ********************************************************************************/
 
+use phpseclib\Net\SFTP;
+use phpseclib\Crypt\RSA;
+
 class OASFTPTransferAgent extends OATransferAgent
 {
 
@@ -21,16 +24,13 @@ class OASFTPTransferAgent extends OATransferAgent
 
 	protected function init()
 	{
-		Yii::import( 'application.vendors.phpseclib.*' );
-		require_once( 'Crypt/RSA.php' );
-		require_once( 'Net/SFTP.php' );
 		if ( Yii::app()->params['productionMode'] )
 		{
-			$this->client = new Net_SFTP( $this->config['prod_host'], $this->config['prod_port'] );
+			$this->client = new SFTP( $this->config['prod_host'], $this->config['prod_port'] );
 		}
 		else
 		{
-			$this->client = new Net_SFTP( $this->config['test_host'], $this->config['test_port'] );
+			$this->client = new SFTP( $this->config['test_host'], $this->config['test_port'] );
 		}
 		if ( ! $this->client )
 		{
@@ -42,7 +42,7 @@ class OASFTPTransferAgent extends OATransferAgent
 	{
 		if ( isset( $this->config['key'] ) && ! empty( $this->config['key'] ) )
 		{
-			$key = new Crypt_RSA();
+			$key = new RSA();
 			if ( ! $key->loadKey( $this->config['key'] ) )
 			{
 				throw new Exception( 'Unable to load private key.' );

@@ -1,0 +1,24 @@
+{
+    "name": "openach/openach",
+    "description": "OpenACH is a free, open-source, secure web-based ACH origination and payment processing platform. For more information, visit openach.com",
+    "type": "project",
+    "license": "GPLv3",
+    "require": {
+        "phpseclib/phpseclib": "^2.0",
+        "phpseclib/mcrypt_compat": "^1.0",
+        "yiisoft/yii": "^1.1.22",
+        "cweagans/composer-patches": "^1.7"
+    },
+    "autoload": {
+        "psr-0": {
+            "config": "./"
+        }
+    },
+    "extra": {
+        "patches": {
+            "yiisoft/yii": {
+                "cweagans/composer-patches": "patches/yii-1.1.x-mcrypt_compat.diff"
+            }
+        }
+    }
+}

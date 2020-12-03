@@ -1,0 +1,22 @@
+diff --git a/framework/base/CSecurityManager.php b/framework/base/CSecurityManager.php
+index daf3510f4..361b03b41 100644
+--- a/framework/base/CSecurityManager.php
++++ b/framework/base/CSecurityManager.php
+@@ -260,7 +260,7 @@ class CSecurityManager extends CApplicationComponent
+ 	 */
+ 	protected function openCryptModule()
+ 	{
+-		if(extension_loaded('mcrypt'))
++		if(defined('MCRYPT_MODE_CBC'))
+ 		{
+ 			if(is_array($this->cryptAlgorithm))
+ 				$module=@call_user_func_array('mcrypt_module_open',$this->cryptAlgorithm);
+@@ -573,7 +573,7 @@ class CSecurityManager extends CApplicationComponent
+ 			$key = md5($key);
+ 		}
+ 
+-		if(extension_loaded('mcrypt'))
++		if(defined('MCRYPT_MODE_CBC'))
+ 		{
+ 			if(is_array($cipher))
+ 				$module=@call_user_func_array('mcrypt_module_open',$cipher);
