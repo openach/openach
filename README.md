@@ -9,8 +9,8 @@ payment processing platform.  For more information, visit
 
 OpenACH is tested and runs on a Linux/Apache/PHP stack, with either 
 Postgresql or SQLite as a database backend.  It is built on the [Yii
-1.0 framework](https://github.com/yiisoft/yii), so installation is
-similar to a standard Yii 1.0 app.
+1.x framework](https://github.com/yiisoft/yii), so installation is
+similar to a standard Yii 1.x app.
 
 The release contains the following directories:
 
@@ -30,10 +30,13 @@ The release contains the following directories:
 ## REQUIREMENTS
 
 The minimum requirement for OpenACH is that your Web server supports
-PHP 5.3, and has been tested on PHP 5.5.  Ubuntu 12.04 LTS and 
-Ubuntu 14.04 LTS make great platforms for running an OpenACH
-system.
+PHP 7.2 through 7.4. Although no formal testing has been done, PHP
+CodeSniffer, through [PHPCompatibility](https://github.com/PHPCompatibility/PHPCompatibility),
+shows the code should be compatible with PHP 8.0.
 
+Ubuntu 18.04 LTS and 20.04 LTS make great platforms for running an OpenACH
+system. Though, keep in mind that 18.04 LTS has PHP 7.2 which is only receiving
+Ubuntu security updates at this time.
 
 ## QUICK START
 
@@ -67,16 +70,9 @@ OpenACH is a free, open-source, secure web-based ACH origination and
 payment processing platform.  For more information, visit 
 [openach.com](http://openach.com/)
 
-## REQUIREMENTS
-
-The minimum requirement for OpenACH is that your Web server supports
-PHP 5.3, and has been tested on PHP 5.5.  Ubuntu 12.04 LTS and 
-Ubuntu 14.04 LTS make great platforms for running an OpenACH
-system.
-
 ## QUICK START
 
-### Docker
+### Docker (Recommended)
 [Docker](http://docker.io) is a platform for developers and sysadmins 
 to develop, ship, and run applications. Docker lets you quickly 
 assemble applications from components and eliminates the friction that 
