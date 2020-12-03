@@ -1,4 +1,4 @@
-<?
+<?php
 /*********************************************************************************
  * OpenACH is an ACH payment processing platform
  * Copyright (C) 2011 Steven Brendtro, ALL RIGHTS RESERVED

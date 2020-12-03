@@ -86,7 +86,7 @@ class OAClient extends OAAPIBase
 		{
 			$fieldPairs[] = $key . '=' . urlencode($value);
 		}
-		$queryString = implode( $fieldPairs, '&' );
+		$queryString = implode( '&', $fieldPairs );
 
 		$this->curlHandle = curl_init();
 

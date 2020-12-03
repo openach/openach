@@ -17,7 +17,7 @@ class BankPluginController extends Controller
 		else
 		{
 			// Remove all non alpha-numeric chars from input
-			$pluginId = ereg_replace('[^A-Za-z0-9]', '', Yii::app()->request->getParam( 'id' ) );
+			$pluginId = preg_replace('/[^A-Za-z0-9]/', '', Yii::app()->request->getParam( 'id' ) );
 			$pluginId .= 'Config';
 			// Verify that the plugin file actually exists before continuing
 			$pluginFile = Yii::app()->basePath . '/vendors/OpenACH/nacha/Banks/' . $pluginId . '.php';

@@ -15,7 +15,7 @@ class BaseConversion
 		return base_convert( $decimal, 10, 36 );
 	}
 
-	static public function 36ToDecimal( $base36 )
+	static public function From36ToDecimal( $base36 )
 	{
 		return base_convert( $base36, 36, 10 );
 	}

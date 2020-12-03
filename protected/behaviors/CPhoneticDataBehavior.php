@@ -140,7 +140,7 @@ class CPhoneticDataBehavior extends CActiveRecordBehavior {
 					$targets = $options['target'];
 					if ( ! is_array( $targets ) )
 					{
-						continue;
+						break;
 					}
 					$values = ODPhonetic::encode( $origValue, $options['method'] );
 					$this->getOwner()->{$targets[0]} = $values[0];
@@ -149,7 +149,7 @@ class CPhoneticDataBehavior extends CActiveRecordBehavior {
 				case 'levenshtein':
 					if ( ! isset( $options['compare'] ) )
 					{
-						continue;
+						break;
 					}
 					$this->getOwner()->{$target} = ODPhonetic::distance( $origValue, $options['compare'], $options['method'] );
 					break;
